@@ -1,0 +1,7 @@
+Technologies Used
+
+Front end - React: Advantages: High object reusibility. Disadvantages: Higher complexity than other front end languages.
+Back end - API implemented with Express.js: Advantages: API allows for a smooth and concise data flow.
+
+DBMS
+Seqquelize - Allows us to communicate with relational databases more easily

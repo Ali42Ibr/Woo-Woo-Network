@@ -24,7 +24,7 @@ Back end - API implemented with Express.js: Advantages: API allows for a smooth 
 Sendinblue - AdvantagesL Easy access to resources, support from company. Disadvantages: Lower customizability, subscription fee.
 
 DBMS
-Seqquelize - Allows us to communicate with relational databases more easily
+Seqquelize - Allows us to communicate with relational databases more easily. It does not require as much code and is less redundant which saves time. This also makes the code more robust and secure. 
 
 SQLite - The relational DBMS we're implementing for production. Pros: SQLite is a server-less and self-contained database, meaning that we don't need a server to run it unlike MySQL for instance. Effective for small projects/standalone apps and for basic development and testing. Cons: SQLite's library is  smaller in size, less flexible when it comes to data types, and has less security built in. Not scalable.
 

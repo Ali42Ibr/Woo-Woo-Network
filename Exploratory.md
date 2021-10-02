@@ -2,7 +2,7 @@ Meeting Agenda
 
 Introduced all 3 teams to the client.
 
-Outlined what the company is aiming to achieve with regards to providing a platform that connects spiritual healers with clients who are dealing with failed pregancies. This platform not only assists in the scheduling but also handles the money exchange between the two parties. 
+Outlined what the company is aiming to achieve with regards to providing a platform that connects spiritual healers with clients who are dealing with failed pregancies. This platform not only assists in the scheduling but also handles the money exchange between the two parties. It will also provide the location of the healer as well as other key information for the clients. 
 
 Summarized the main goals of the project and briefly mentioned the features each team is expected to work on, including improved searching functionality, mapping, and testing.
 

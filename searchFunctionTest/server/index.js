@@ -1,29 +1,82 @@
-
 import express from 'express';
 import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
-import cors from 'cors';
 
-import postRoutes from './routes/posts.js';
+
+
+const users = [
+  {
+    "id":"0",
+    "name":"ali",
+    "lat":"100",
+    "long":"200"
+  },
+  {
+    "id":"1",
+    "name":"boody",
+    "lat":"500",
+    "long":"600"
+  },
+  {
+    "id":"2",
+    "name":"koushy",
+    "lat":"700",
+    "long":"100"
+  }
+]
 
 
 const app = express();
+const port = process.env.PORT || 5000;
 
-app.use('/posts',postRoutes);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(bodyParser.json({ limit: '30mb', extended: true }))
-app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
-app.use(cors());
+app.get('/api/hello', (req, res) => {
+  res.send({ express: 'Hello From Express' });
+});
+
+let user = [];
+let otherUsers = [];
+
+app.post('/api/world', (req, res) => {
+
+  console.log(users[0]);
+
+  user = users[req.body.post];
+
+  const mainUser = (Number(user.lat) + Number(user.long));
+
+  let otherUsers = [];
 
 
-const CONNECTION_URL = 'mongodb+srv://ali:ali123admin@cluster0.cctka.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
-const PORT = process.env.PORT|| 5000;
+
+  for (let i = 0; i < users.length; i++) {
+    if (user.id != i){
+      otherUsers.push(
+        {"id":[i], "location":(Math.pow(Number(users[i].lat) + Number(users[i].long) - mainUser, 2))}
+      );
+    }
+  } 
 
 
 
-mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true})
-.then(() => {
-  app.listen(PORT, ()=> console.log("Server running"));
-})
-.catch((error)=> console.log(error.message));
+  otherUsers = otherUsers.sort(function(a, b) {
+    return a.location - b.location;
+  }); // Sort youngest fi
 
+  let others = `You are user:${user.name} Other users`;
+
+  for (let i = 0; i < otherUsers.length; i++) {
+     others = others + `Name: ${users[otherUsers[i].id].name} Location from you: ${otherUsers[i].location/10000} km`
+
+  }
+
+
+  res.send(
+   others 
+  );
+
+
+});
+
+app.listen(port, () => console.log(`Listening on port ${port}`));

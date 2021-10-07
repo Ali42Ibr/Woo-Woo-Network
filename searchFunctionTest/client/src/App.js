@@ -8,7 +8,8 @@ class App extends Component {
     response: '',
     post: '',
     responseToPost: '',
-    array: []
+    array: [],
+    search: ''
   };
     
   componentDidMount() {
@@ -46,11 +47,24 @@ class App extends Component {
 
 
   };
+
+onchange = e => {
+  this.setState({ search : e.target.value})
+}
   
+
+
 render() {
+
+    const {search} = this.state;
+    const filteredNames = this.state.array.filter( person => {
+      return person.name.toLowerCase().indexOf( search.toLowerCase()) !== -1
+    })
 
 
     return (
+
+      
       <div className="App">
         <p>{this.state.response}</p>
         <form onSubmit={this.handleSubmit}>
@@ -64,10 +78,17 @@ render() {
           />
           <button type="submit">Submit</button>
         </form>
- {       (this.state.array).map((val,key) => {
-    return <div>{val.name}</div>
- })
-}      </div>
+
+        
+
+        <input type="text" placeHolder="search" onChange={this.onchange} />
+ {       (filteredNames.map((val,key) => {
+    return (
+          <div className ="user" key={key}>
+              <p>{val.name} distance from you: {val.location/1000} km</p>
+          </div>
+    )}))}
+      </div>
     );
   }
 }

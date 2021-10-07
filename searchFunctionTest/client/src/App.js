@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 
 
 class App extends Component {
+
+  
   state = {
     response: '',
     post: '',
     responseToPost: '',
+    array: []
   };
-  
+    
   componentDidMount() {
     this.callApi()
       .then(res => this.setState({ response: res.express }))
@@ -23,6 +26,8 @@ class App extends Component {
   };
   
   handleSubmit = async e => {
+
+    
     e.preventDefault();
     const response = await fetch('/api/world', {
       method: 'POST',
@@ -34,24 +39,19 @@ class App extends Component {
     const body = await response.text();
     
     this.setState({ responseToPost: body });
+
+    const arrays = JSON.parse(this.state.responseToPost).users;
+
+    this.setState({array: arrays});
+
+
   };
   
 render() {
+
+
     return (
       <div className="App">
-        <header className="App-header">
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
         <p>{this.state.response}</p>
         <form onSubmit={this.handleSubmit}>
           <p>
@@ -64,8 +64,10 @@ render() {
           />
           <button type="submit">Submit</button>
         </form>
-        <p>{this.state.responseToPost}</p>
-      </div>
+ {       (this.state.array).map((val,key) => {
+    return <div>{val.name}</div>
+ })
+}      </div>
     );
   }
 }

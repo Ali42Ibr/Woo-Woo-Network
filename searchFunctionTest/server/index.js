@@ -31,16 +31,12 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/api/hello', (req, res) => {
-  res.send({ express: 'Hello From Express' });
-});
 
 let user = [];
 let otherUsers = [];
 
 app.post('/api/world', (req, res) => {
 
-  console.log(users[0]);
 
   user = users[req.body.post];
 
@@ -48,15 +44,22 @@ app.post('/api/world', (req, res) => {
 
   let otherUsers = [];
 
+  let mainArray = {"users":"0"};
+
 
 
   for (let i = 0; i < users.length; i++) {
     if (user.id != i){
       otherUsers.push(
-        {"id":[i], "location":(Math.pow(Number(users[i].lat) + Number(users[i].long) - mainUser, 2))}
+        {"name":users[i].name, "location":(Math.pow(Number(users[i].lat) + Number(users[i].long) - mainUser, 2))}
       );
     }
   } 
+
+  mainArray.users = otherUsers;
+
+  console.log(mainArray);
+
 
 
 
@@ -64,17 +67,12 @@ app.post('/api/world', (req, res) => {
     return a.location - b.location;
   }); // Sort youngest fi
 
-  let others = `You are user:${user.name} Other users`;
-
-  for (let i = 0; i < otherUsers.length; i++) {
-     others = others + `Name: ${users[otherUsers[i].id].name} Location from you: ${otherUsers[i].location/10000} km`
-
-  }
 
 
-  res.send(
-   others 
-  );
+
+
+  res.json(mainArray);
+
 
 
 });

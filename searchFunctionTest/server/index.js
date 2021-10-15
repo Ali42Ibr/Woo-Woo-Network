@@ -37,22 +37,19 @@ app.use(cookieParser());
 let user = [];
 let otherUsers = [];
 
-app.post('/api/logout', (req, res) => {
+app.post('/api/login', (req, res) => {
 
-  console.log(res.cookies);
+  res.cookie("username","ali");
+  res.send('Cookie have been saved successfully');
+});
 
-
+app.get('/api/logout', (req, res) => {
+  //show the saved cookies
+  res.clearCookie("username");
+  res.send('Cookie has been deleted successfully');
 });
 
 
-app.post('/api/login', (req,res) => {
-  res.cookie('nameOfCookie', 'cookieValue', {
-    maxAge: 60 * 60 * 1000, // 1 hour
-    httpOnly: true,
-    secure: true,
-    sameSite: true,
-  })
-})
 
 app.post('/api/world', (req, res) => {
 

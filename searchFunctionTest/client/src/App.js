@@ -52,13 +52,38 @@ onchange = e => {
   this.setState({ search : e.target.value})
 }
 
+
 login = async e => {
 
+  console.log("login")
+    
   const response = await fetch('/api/login', {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
+
   const body = await response.text();
+
+  console.log(body);
 }
+
+logout = async e => {
+
+    
+  const response = await fetch('/api/logout', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  const body = await response.text();
+
+  console.log(body);
+}
+
   
 
 
@@ -100,8 +125,8 @@ render() {
 
        
           
-          <button type="submit" onSubmit={this.login}>Login</button>
-          <button type="submit" onSubmit={this.logout}>Logout</button>
+          <button type="submit" onClick={this.login}>Login</button>
+          <button type="submit" onClick={this.logout}>Logout</button>
 
 
     

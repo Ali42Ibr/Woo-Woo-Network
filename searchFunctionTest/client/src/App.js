@@ -51,6 +51,14 @@ class App extends Component {
 onchange = e => {
   this.setState({ search : e.target.value})
 }
+
+login = async e => {
+
+  const response = await fetch('/api/login', {
+    method: 'POST',
+  });
+  const body = await response.text();
+}
   
 
 
@@ -88,7 +96,20 @@ render() {
               <p>{val.name} distance from you: {val.location/1000} km</p>
           </div>
     )}))}
+
+
+       
+          
+          <button type="submit" onSubmit={this.login}>Login</button>
+          <button type="submit" onSubmit={this.logout}>Logout</button>
+
+
+    
       </div>
+
+
+
+
     );
   }
 }

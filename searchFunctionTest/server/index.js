@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 
 
 
@@ -30,10 +31,28 @@ const port = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 
 let user = [];
 let otherUsers = [];
+
+app.post('/api/logout', (req, res) => {
+
+  console.log(res.cookies);
+
+
+});
+
+
+app.post('/api/login', (req,res) => {
+  res.cookie('nameOfCookie', 'cookieValue', {
+    maxAge: 60 * 60 * 1000, // 1 hour
+    httpOnly: true,
+    secure: true,
+    sameSite: true,
+  })
+})
 
 app.post('/api/world', (req, res) => {
 

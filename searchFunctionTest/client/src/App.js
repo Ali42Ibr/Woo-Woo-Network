@@ -9,7 +9,8 @@ class App extends Component {
     post: '',
     responseToPost: '',
     array: [],
-    search: ''
+    search: '',
+    cookies: ''
   };
     
   componentDidMount() {
@@ -52,41 +53,6 @@ onchange = e => {
   this.setState({ search : e.target.value})
 }
 
-
-login = async e => {
-
-  console.log("login")
-    
-  const response = await fetch('/api/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-
-  const body = await response.text();
-
-  console.log(body);
-}
-
-logout = async e => {
-
-    
-  const response = await fetch('/api/logout', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-
-  const body = await response.text();
-
-  console.log(body);
-}
-
-  
-
-
 render() {
 
     const {search} = this.state;
@@ -99,6 +65,7 @@ render() {
 
       
       <div className="App">
+        <p>{}</p>
         <p>{this.state.response}</p>
         <form onSubmit={this.handleSubmit}>
           <p>
@@ -121,12 +88,6 @@ render() {
               <p>{val.name} distance from you: {val.location/1000} km</p>
           </div>
     )}))}
-
-
-       
-          
-          <button type="submit" onClick={this.login}>Login</button>
-          <button type="submit" onClick={this.logout}>Logout</button>
 
 
     

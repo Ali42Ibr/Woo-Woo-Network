@@ -9,7 +9,8 @@ class App extends Component {
     post: '',
     responseToPost: '',
     array: [],
-    search: ''
+    search: '',
+    cookies: ''
   };
     
   componentDidMount() {
@@ -51,8 +52,6 @@ class App extends Component {
 onchange = e => {
   this.setState({ search : e.target.value})
 }
-  
-
 
 render() {
 
@@ -66,6 +65,7 @@ render() {
 
       
       <div className="App">
+        <p>{}</p>
         <p>{this.state.response}</p>
         <form onSubmit={this.handleSubmit}>
           <p>
@@ -88,7 +88,14 @@ render() {
               <p>{val.name} distance from you: {val.location/1000} km</p>
           </div>
     )}))}
+
+
+    
       </div>
+
+
+
+
     );
   }
 }

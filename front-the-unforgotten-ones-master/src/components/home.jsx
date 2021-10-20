@@ -159,8 +159,6 @@ const Tag = (props) => {
 function Home() {
   const classes = useStyles();
   const [healers, setHealers] = useState([]);
-  const [isSearching, setIsSearching] = useState(false);
-  const [search, setSearch] = useState('');
 
   const LIMIT_MOBILE = 4;
   const LIMIT_WEB = 8;
@@ -173,18 +171,6 @@ function Home() {
     setLimit(limit + 4);
   };
 
-  const searchFunction = () => {
-    setIsSearching(true);
-  };
-
-
-  const closeFunction = () => {
-    setIsSearching(false);
-  };
-
-  const filteredNames = healers.filter( person => {
-    return person.firstName.toLowerCase().indexOf( search.toLowerCase()) !== -1
-  })
 
   function Healer({
     // this doohickey holds healer data. This is the object we plop the data into.
@@ -287,15 +273,7 @@ function Home() {
           />
         }
 
-        <input type="text" placeHolder="search" onClick={searchFunction} onChange={e=>setSearch(e.target.value)} />
-        {isSearching && (filteredNames.map((val,key) => {
-    return (
-          <div className ="user" key={key}>
-              <p>{val.firstName}</p>
-          </div>
-    )}))}
-        {console.log(search)}
-        <button onClick={closeFunction}>Close</button>
+
         
         <Paper className={classes.flavorContents}>
           <Typography variant="h3" gutterBottom color="black">

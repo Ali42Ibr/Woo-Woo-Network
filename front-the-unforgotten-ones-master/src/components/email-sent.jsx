@@ -68,7 +68,7 @@ const EmailSentPage = () => {
 
   return (
     <div>
-      <Paper>
+      <Paper className={`${classes.Paper} ${globalStyles.defPgContainer}`}>
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>

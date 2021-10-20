@@ -170,8 +170,6 @@ function Home() {
   const showMoreDocuments = () => {
     setLimit(limit + 4);
   };
-
-
   function Healer({
     // this doohickey holds healer data. This is the object we plop the data into.
     healerName,
@@ -256,7 +254,6 @@ function Home() {
   }, []);
 
   return (
-    
     <div style={{ textAlign: 'center' }}>
       <CssBaseline />
       <a id="landing"></a>
@@ -273,8 +270,6 @@ function Home() {
           />
         }
 
-
-        
         <Paper className={classes.flavorContents}>
           <Typography variant="h3" gutterBottom color="black">
             Global Healing Network

@@ -42,7 +42,6 @@ const AuthSite = ({ logout, user }) => {
         const decodedId = jwt_decode(user).user_id;
         const aToken = sessionStorage.getItem('token');
         const token = jwt_decode(aToken);
-        console.log(aToken);
         const expirationTime = token.exp * 1000 - 60000;
         if (Date.now() >= expirationTime) {
           logout();

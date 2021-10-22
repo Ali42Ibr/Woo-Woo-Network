@@ -170,6 +170,23 @@ function Home() {
   const showMoreDocuments = () => {
     setLimit(limit + 4);
   };
+
+  async function healerSearch() {
+    console.log(123);
+    const response = await fetch(
+      process.env.REACT_APP_API_DOMAIN + '/healers/healerSearch',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId: 1 }),
+      }
+    );
+    const body = await response.text();
+    console.log(body);
+  }
+
   function Healer({
     // this doohickey holds healer data. This is the object we plop the data into.
     healerName,
@@ -269,7 +286,7 @@ function Home() {
             alt="alt image line 54"
           />
         }
-
+        <button onClick={healerSearch}>Search</button>
         <Paper className={classes.flavorContents}>
           <Typography variant="h3" gutterBottom color="black">
             Global Healing Network

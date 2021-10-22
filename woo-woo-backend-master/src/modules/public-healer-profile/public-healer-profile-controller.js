@@ -37,7 +37,36 @@ const getPublicHealerProfile = async (req, res, next) => {
   }
 };
 
+const getOtherHealerList = async (req, res, next) => {
+  try {
+    // limit and start is for pagination purpose
+    const { limit, start } = req.query;
+    const healerList = await publicHealerProfileHelper.getHealerList(
+      limit,
+      start
+    );
+
+    const healerProfile = await publicHealerProfileHelper.getHealerProfile(1);
+
+    console.log(healerProfile.location);
+    
+    for (let i = 0; i < 10; i++){
+     // console.log(healerList[i]);
+    }
+
+
+    res.status(200).json(healerList);
+    console.log("My User: " + req.body.userId);
+
+
+
+  } catch (err) {
+    next(err);
+  }
+};
+
 export default {
   getPublicHealerList,
   getPublicHealerProfile,
+  getOtherHealerList
 };

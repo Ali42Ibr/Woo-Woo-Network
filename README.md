@@ -5,7 +5,7 @@ Ali Ibrahim
 David Pinos
 Daven Minhas
 
-* Project Description 
+Project Description 
 
 The Woo Woo Network is a platform focused on helping people via spiritual healing. 
 

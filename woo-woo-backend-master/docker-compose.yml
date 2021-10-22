@@ -1,0 +1,32 @@
+version: '3.5'
+services:
+  api:
+    volumes:
+      - public-photos:/public/photos
+    image: $IMAGE_NAME
+    container_name: api
+    environment:
+      - NODE_ENV=production
+      - FIREBASE_AUTH_DOMAIN=${FIREBASE_AUTH_DOMAIN}
+      - FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID}
+      - FIREBASE_APP_ID=${FIREBASE_APP_ID}
+      - FIREBASE_MEASUREMENT_ID=${FIREBASE_MEASUREMENT_ID}
+      - FIREBASE_PRIVATE_KEY=${FIREBASE_PRIVATE_KEY}
+      - FIREBASE_CLIENT_EMAIL=${FIREBASE_CLIENT_EMAIL}
+      - PHOTO_STORAGE_DOMAIN=${PHOTO_STORAGE_DOMAIN}
+      - EMAIL_SERVICE_API=${EMAIL_SERVICE_API}
+      - PAYMENT_SERVICE_API_KEY=${PAYMENT_SERVICE_API_KEY}
+      - PAYMENT_SERVICE_SECRET_KEY=${PAYMENT_SERVICE_SECRET_KEY}
+      - APP_DOMAIN=${APP_DOMAIN}
+      - FIREBASE_API_KEY=${FIREBASE_API_KEY}
+
+    networks:
+      - woowoo_net
+
+volumes:
+  public-photos:
+    external: true
+
+networks:
+  woowoo_net:
+    external: true

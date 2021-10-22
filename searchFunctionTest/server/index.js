@@ -1,8 +1,22 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import vincenty from 'node-vincenty';
+import axios from 'axios';
 
 
+
+const params = {
+  access_key: '5af926703add4889573373062dc15bfb',
+  query: '3075 Vint Road kelowna'
+}
+
+axios.get('http://api.positionstack.com/v1/forward', {params})
+  .then(response => {
+    console.log(response.data);
+  }).catch(error => {
+    console.log(error);
+  });
 
 const users = [
   {
@@ -25,6 +39,8 @@ const users = [
   }
 ]
 
+
+//console.log( vincenty.distVincenty(49.887774, -119.486984, 49.884089, -119.442701) );
 
 const app = express();
 const port = process.env.PORT || 5000;

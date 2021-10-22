@@ -1,0 +1,10 @@
+node_modules
+.git
+README.md 
+Dockerfile
+
+# linting files
+.eslintrc.js
+.prettierrc
+*.PNG
+*.png

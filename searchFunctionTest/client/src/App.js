@@ -49,6 +49,10 @@ class App extends Component {
 
   };
 
+onChangeTest = e => {
+  //return <>{responseToPost}</>;
+}
+
 onchange = e => {
   this.setState({ search : e.target.value})
 }
@@ -89,6 +93,7 @@ render() {
           </div>
     )}))}
 
+<input type="text" onClick={this.onChangeTest}/>
 
     
       </div>

@@ -1,0 +1,68 @@
+stages:
+  - publish
+  - deploy
+
+variables:
+  TAG_LATEST: $CI_REGISTRY/$CI_PROJECT_PATH:latest
+  TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
+  ENV_FILE_NAME: .env
+
+publish:
+  image: docker:latest
+  stage: publish
+  services:
+    - docker:dind
+  script:
+    - docker build -t $TAG_COMMIT -t $TAG_LATEST .
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker push $TAG_COMMIT
+    - docker push $TAG_LATEST
+  when: manual
+  # only:
+  #   - master
+
+deploy:
+  image: ubuntu
+  stage: deploy
+  tags:
+    - deployment
+  before_script:
+    - echo "start deploying..."
+    - printf "NODE_ENV=production\n
+      FIREBASE_AUTH_DOMAIN=${FIREBASE_AUTH_DOMAIN}\n
+      FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID}\n
+      FIREBASE_APP_ID=${FIREBASE_APP_ID}\n
+      FIREBASE_MEASUREMENT_ID=${FIREBASE_MEASUREMENT_ID}\n
+      FIREBASE_PRIVATE_KEY=${FIREBASE_PRIVATE_KEY}\n
+      FIREBASE_CLIENT_EMAIL=${FIREBASE_CLIENT_EMAIL}\n
+      PHOTO_STORAGE_DOMAIN=${PHOTO_STORAGE_DOMAIN}\n
+      EMAIL_SERVICE_API=${EMAIL_SERVICE_API}\n
+      PAYMENT_SERVICE_API_KEY=${PAYMENT_SERVICE_API_KEY}\n
+      APP_DOMAIN=${APP_DOMAIN}\n
+      IMAGE_NAME=${TAG_COMMIT}\n
+      FIREBASE_API_KEY=${FIREBASE_API_KEY}\n
+      PAYMENT_SERVICE_SECRET_KEY=${PAYMENT_SERVICE_SECRET_KEY}\n" > $ENV_FILE_NAME
+    - cat $ENV_FILE_NAME
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+    - mkdir -p ~/.ssh
+    - echo "$ID_RSA" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - eval "$(ssh-agent -s)"
+    - ssh-add ~/.ssh/id_rsa
+    - ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - scp -r $ENV_FILE_NAME docker-compose.yml $SERVER_USER@$SERVER_IP:~/
+    - ssh $SERVER_USER@$SERVER_IP "docker-compose -f docker-compose.yml down | true"
+    - ssh $SERVER_USER@$SERVER_IP "docker-compose ps"
+    - ssh $SERVER_USER@$SERVER_IP "docker-compose -f docker-compose.yml rm api | true"
+    - ssh $SERVER_USER@$SERVER_IP "docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY"
+    - ssh $SERVER_USER@$SERVER_IP "docker-compose pull"
+    - ssh $SERVER_USER@$SERVER_IP "docker-compose -f docker-compose.yml --env-file $ENV_FILE_NAME up -d --force-recreate"
+
+  environment:
+    name: production
+    url: $SERVER_IP
+  when: manual
+  # only:
+  #   - master

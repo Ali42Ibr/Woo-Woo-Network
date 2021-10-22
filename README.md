@@ -1,11 +1,10 @@
 # Woo-Woo-Network
 
-Mohamad Agha
-Ali Ibrahim
-David Pinos
+Mohamad Agha,
+Ali Ibrahim,
+David Pinos,
 Daven Minhas
-
-Project Description 
+# 
 
 The Woo Woo Network is a platform focused on helping people via spiritual healing. 
 

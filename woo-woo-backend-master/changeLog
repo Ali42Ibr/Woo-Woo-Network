@@ -1,1 +1,11 @@
 seed-data.js was changed to put real locations for testing geolocation modules
+
+search feature:
+
+Front end: There is a button and a search bar in home.jsx(front). When the search button is clicked, it sends over location information to /healers/healerSearch
+Then we recieve a list of users sorted by closest to farthest from sent location. Using a few lines of code, we can search for users in the search bar.
+(Must click search and wait for a bit before users show up)
+
+Back end: Recieves location, compares to healer locations, and sends back a list organized by proximity.
+
+

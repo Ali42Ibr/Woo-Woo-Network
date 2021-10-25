@@ -1,4 +1,6 @@
 import publicHealerProfileHelper from './public-healer-profile-helper';
+import axios from 'axios';
+import vincenty from 'node-vincenty';
 
 /**
  * Get a list of public healer profile
@@ -37,26 +39,114 @@ const getPublicHealerProfile = async (req, res, next) => {
   }
 };
 
+//test function, trying to recieve main user information (location) and return a list of healers based on proximity
+
 const getOtherHealerList = async (req, res, next) => {
+
+
+  //initializing position stack api
+
+  let params = {
+    access_key: '5af926703add4889573373062dc15bfb',
+    query: ''
+  }
+  
+
+
   try {
     // limit and start is for pagination purpose
+
+    //regular healer list
     const { limit, start } = req.query;
     const healerList = await publicHealerProfileHelper.getHealerList(
       limit,
       start
     );
 
-    const healerProfile = await publicHealerProfileHelper.getHealerProfile(1);
+    let locations = [];
 
-    console.log(healerProfile.location);
-    
-    for (let i = 0; i < 10; i++){
-     // console.log(healerList[i]);
+
+    //our user location
+    const myLoc = req.body.userLocation;
+    params.query = myLoc;
+
+
+    const getMyCoordinates = async (query) => {
+     params.query = query
+     const resp = await axios.get('http://api.positionstack.com/v1/forward', {params})
+     const myLat = (resp.data.data[0].latitude);
+     const myLong = (resp.data.data[0].longitude);
+
+      return [myLat,myLong];
+
     }
 
+    const myLocationArray = (await getMyCoordinates(myLoc));
 
-    res.status(200).json(healerList);
+    const myLat = myLocationArray[0];
+    const myLong = myLocationArray[1];
+
+    console.log("Final",myLat,myLong)
+
+    let userAndDistance = [];
+
+    for (let i = 1; i < 11; i++){
+
+      const healerProfile = await publicHealerProfileHelper.getHealerProfile(i);
+
+      //my location
+
+      const healerLocationString = (healerProfile.location.address + " " + healerProfile.location.city+ " " +healerProfile.location.province+ " " + healerProfile.location.country+ " " +
+      healerProfile.location.postalCode );
+
+      let lat = 0;
+      let long = 0;
+
+
+      
+      console.log((healerProfile.location.address));
+
+
+      const otherCoordinates = await getMyCoordinates(healerLocationString);
+
+      userAndDistance.push({distance:(Math.abs(vincenty.distVincenty(myLat, myLong, otherCoordinates[0], otherCoordinates[1]).distance)),id:i});
+
+
+    }
+    console.log(userAndDistance);
+
+
+    let otherUsers = userAndDistance.sort(function(a, b) {
+      return a.distance - b.distance;
+    }); // Sort youngest fi
+
+
+
+    let newHealerList = [];
+
+    console.log(otherUsers[1].id)
+    console.log(healerList[1].id)
+
+    
+    for (let i = 0; i < 10; i++){
+      for (let j = 0; j < 10; j++){
+      if (otherUsers[i].id == healerList[j].id){
+        newHealerList.push(healerList[j])
+      }
+    }
+    }
+
+    console.log(otherUsers);
+    console.log(newHealerList);
+
+
+
+    res.status(200).json(newHealerList);
     console.log("My User: " + req.body.userId);
+    console.log("My User Location: " + req.body.userLocation);
+
+
+
 
 
 

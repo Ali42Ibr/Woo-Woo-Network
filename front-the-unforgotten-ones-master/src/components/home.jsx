@@ -159,6 +159,8 @@ const Tag = (props) => {
 function Home() {
   const classes = useStyles();
   const [healers, setHealers] = useState([]);
+  const [searchArray, setSearchArray] = useState([]);
+  const [search, setSearch] = useState('');
 
   const LIMIT_MOBILE = 4;
   const LIMIT_WEB = 8;
@@ -172,7 +174,6 @@ function Home() {
   };
 
   async function healerSearch() {
-    console.log(123);
     const response = await fetch(
       process.env.REACT_APP_API_DOMAIN + '/healers/healerSearch',
       {
@@ -180,11 +181,15 @@ function Home() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userId: 1 }),
+        body: JSON.stringify({
+          userId: 1,
+          userLocation: '3075 Vint Road Kelowna',
+        }),
       }
     );
-    const body = await response.text();
-    console.log(body);
+    const body = await response.json();
+    setSearchArray(body);
+    console.log(body[0]);
   }
 
   function Healer({
@@ -270,6 +275,18 @@ function Home() {
     })();
   }, []);
 
+  onchange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  const searchThis = search;
+  const filteredNames = searchArray.filter((person) => {
+    return (
+      person.firstName.toLowerCase().indexOf(searchThis.toLowerCase()) !== -1
+    );
+  });
+  console.log(filteredNames);
+
   return (
     <div style={{ textAlign: 'center' }}>
       <CssBaseline />
@@ -287,6 +304,14 @@ function Home() {
           />
         }
         <button onClick={healerSearch}>Search</button>
+        <input type="text" placeHolder="search" onChange={onchange} />
+        {filteredNames.map((val, key) => {
+          return (
+            <div className="user" key={key}>
+              <p>{val.firstName}</p>
+            </div>
+          );
+        })}
         <Paper className={classes.flavorContents}>
           <Typography variant="h3" gutterBottom color="black">
             Global Healing Network

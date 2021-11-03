@@ -339,7 +339,7 @@ function Home() {
         <button onClick={() => clickSearch('Clear')}>Clear</button>
         <button onClick={() => clickSearch('Pregnancy')}>Pregnancy</button>
         <button onClick={() => clickSearch('Therapy')}>Therapy</button>
-        <button onClick={() => clickSearch('Martial')}>Martial</button>
+        <button onClick={() => clickSearch('Marital')}>Marital</button>
         {console.log('Final')}
         {console.log(searchTag)}
         <input

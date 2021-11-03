@@ -7,5 +7,3 @@ Then we recieve a list of users sorted by closest to farthest from sent location
 (Must click search and wait for a bit before users show up)
 
 Back end: Recieves location, compares to healer locations, and sends back a list organized by proximity.
-
-

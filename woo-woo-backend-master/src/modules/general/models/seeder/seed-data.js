@@ -58,8 +58,51 @@ export const createHealerBulk = async () => {
 
 
 
+  /*const healerTags = response.map((user) => {
+    return {
 
-  //original function
+    }
+  })*/
+
+  response = await db.Location.bulkCreate(healerLocation, {
+    returning: true,
+  });
+
+  const generalTags = [{
+    id:0,
+    name:"Pregnancy",
+  },
+  {
+    id:1,
+    name:"Therapy",
+  },
+  {
+    id:2,
+    name:"Marital"
+  }]
+
+  await db.Tag.bulkCreate(generalTags, {
+    returning: true,
+  });
+
+  const fakeIds = [0,1,2,0,1,2,0,1,2,0];
+
+  console.log("Healer Tags");
+
+  const healerTags = response.map((user) => {
+    return {
+      healerProfileId: user.id,
+      tagId: fakeIds[Number(user.id)-1],
+    }
+  });
+
+  console.log(healerTags);
+
+  response = await db.HealerTag.bulkCreate(healerTags, {
+    returning: true,
+  });
+
+  //original function for fake data
   /*const healerLocation = response.map((user) => {
     return {
       address: faker.address.streetAddress(),
@@ -71,9 +114,6 @@ export const createHealerBulk = async () => {
     }
   }); */
 
-  response = await db.Location.bulkCreate(healerLocation, {
-    returning: true,
-  });
 
   // get healer profile id from return response
   const healerProfileIdList = response.map((healerProfile) => healerProfile.id);

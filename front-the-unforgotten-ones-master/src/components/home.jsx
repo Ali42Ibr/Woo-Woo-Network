@@ -161,6 +161,7 @@ function Home() {
   const [healers, setHealers] = useState([]);
   const [searchArray, setSearchArray] = useState([]);
   const [search, setSearch] = useState('');
+  const [searchTag, setSearchTag] = useState([]);
 
   const LIMIT_MOBILE = 4;
   const LIMIT_WEB = 8;
@@ -188,8 +189,41 @@ function Home() {
       }
     );
     const body = await response.json();
+    console.log(body);
     setSearchArray(body);
-    console.log(body[0]);
+    console.log(body[0].tags[0].name);
+  }
+
+  function clickSearch(props) {
+    console.log('New click');
+    if (props == 'Clear') {
+      setSearchTag([]);
+      console.log('Clearing');
+    } else if (searchTag.includes(props)) {
+      console.log('Already Here');
+      let newSearchTag = [];
+      for (let i = 0; i < searchTag.length; i++) {
+        if (searchTag[i] != props && searchTag[i] != undefined) {
+          newSearchTag.push(searchTag[i]);
+          console.log(newSearchTag);
+        }
+      }
+      setSearchTag(newSearchTag);
+    } else {
+      console.log('New item');
+      let newArray = searchTag;
+      newArray.push(props);
+      setSearchTag(newArray);
+    }
+    filterTags();
+  }
+
+  function filterTags() {
+    console.log('Props');
+    console.log(searchTag);
+    for (let i = 0; i < searchArray.length; i++) {
+      console.log(1);
+    }
   }
 
   function Healer({
@@ -285,7 +319,6 @@ function Home() {
       person.firstName.toLowerCase().indexOf(searchThis.toLowerCase()) !== -1
     );
   });
-  console.log(filteredNames);
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -303,8 +336,18 @@ function Home() {
             alt="alt image line 54"
           />
         }
-        <button onClick={healerSearch}>Search</button>
-        <input type="text" placeHolder="search" onChange={onchange} />
+        <button onClick={() => clickSearch('Clear')}>Clear</button>
+        <button onClick={() => clickSearch('Pregnancy')}>Pregnancy</button>
+        <button onClick={() => clickSearch('Therapy')}>Therapy</button>
+        <button onClick={() => clickSearch('Martial')}>Martial</button>
+        {console.log('Final')}
+        {console.log(searchTag)}
+        <input
+          type="text"
+          placeHolder="search"
+          onChange={onchange}
+          onClick={healerSearch}
+        />
         {filteredNames.map((val, key) => {
           return (
             <div className="user" key={key}>

@@ -83,9 +83,12 @@ const AccountInfo = ({ userid }) => {
             },
           }
         );
+        console.log(response);
         if (!response.ok)
           throw Error(response.status + ': ' + response.statusText); // error checking, is the data okay?
+        console.log('data below');
         const data = await response.json(); // transform the data from string into JSON format.
+        console.log(data);
         if (data.photo === '') {
           // user didnt upload picture yet
           setImage(placeholderAvatar);
@@ -96,6 +99,7 @@ const AccountInfo = ({ userid }) => {
         setIsHealer(data.isHealer);
         setEmail(data.email);
       } catch (Error) {
+        console.log('error');
         console.log(Error);
       }
     })();

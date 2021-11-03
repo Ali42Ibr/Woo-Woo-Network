@@ -349,6 +349,9 @@ function Home() {
           onClick={healerSearch}
         />
         {filteredNames.map((val, key) => {
+          if (searchTag.includes(val.tags[0].name)) {
+            console.log(val.firstName);
+          }
           return (
             <div className="user" key={key}>
               <p>{val.firstName}</p>

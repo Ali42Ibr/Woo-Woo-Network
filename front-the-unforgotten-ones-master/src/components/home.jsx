@@ -156,12 +156,14 @@ const Tag = (props) => {
  This way works as a showcase though.
  Maybe there could be a more detailed paragraph describing the site here too.
 */
+//searchLocationUser is for returning user locations, search are for the searching, searchTag is for the filtering
 function Home() {
   const classes = useStyles();
   const [healers, setHealers] = useState([]);
-  const [searchArray, setSearchArray] = useState([]);
+  const [searchLocationUser, setSearchLocationUser] = useState([]);
   const [search, setSearch] = useState('');
   const [searchTag, setSearchTag] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
 
   const LIMIT_MOBILE = 4;
   const LIMIT_WEB = 8;
@@ -173,44 +175,6 @@ function Home() {
   const showMoreDocuments = () => {
     setLimit(limit + 4);
   };
-
-  async function healerSearch() {
-    const response = await fetch(
-      process.env.REACT_APP_API_DOMAIN + '/healers/healerSearch',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId: 1,
-          userLocation: '3075 Vint Road Kelowna',
-        }),
-      }
-    );
-    const body = await response.json();
-    setSearchArray(body);
-  }
-
-  function clickSearch(props) {
-    if (props == 'Clear') {
-      setSearchTag([]);
-    } else if (searchTag.includes(props)) {
-      let newSearchTag = [];
-      for (let i = 0; i < searchTag.length; i++) {
-        if (searchTag[i] != props && searchTag[i] != undefined) {
-          newSearchTag.push(searchTag[i]);
-        }
-      }
-      setSearchTag(newSearchTag);
-    } else if (!searchTag.includes(props)) {
-      let newArray = searchTag;
-      newArray.push(props);
-      setSearchTag([...newArray]);
-    } else {
-      console.log('Weird else');
-    }
-  }
 
   function Healer({
     // this doohickey holds healer data. This is the object we plop the data into.
@@ -294,6 +258,7 @@ function Home() {
       }
     })();
 
+    //posts to backend with user info, gets back a healer list based on location
     (async () => {
       try {
         const response = await fetch(
@@ -310,23 +275,45 @@ function Home() {
           }
         );
         const body = await response.json();
-        setSearchArray(body);
+        setSearchLocationUser(body);
       } catch (Error) {
         console.log(Error);
       }
     })();
   }, []);
 
-  onchange = (e) => {
+  //filters based on tags
+  function clickSearch(props) {
+    if (props == 'Clear') {
+      setSearchTag([]);
+    } else if (searchTag.includes(props)) {
+      let newSearchTag = [];
+      for (let i = 0; i < searchTag.length; i++) {
+        if (searchTag[i] != props && searchTag[i] != undefined) {
+          newSearchTag.push(searchTag[i]);
+        }
+      }
+      setSearchTag(newSearchTag);
+    } else if (!searchTag.includes(props)) {
+      let newArray = searchTag;
+      newArray.push(props);
+      setSearchTag([...newArray]);
+    } else {
+      console.log('Weird else');
+    }
+  }
+
+  //setting state for searching
+  function onChangeSearch(e) {
     setSearch(e.target.value);
-  };
+  }
 
   function fullSearchFunction(props) {
     clickSearch(props);
   }
 
   const searchThis = search;
-  const filteredNames = searchArray.filter((person) => {
+  const filteredNames = searchLocationUser.filter((person) => {
     return (
       person.firstName.toLowerCase().indexOf(searchThis.toLowerCase()) !== -1
     );
@@ -348,6 +335,7 @@ function Home() {
             alt="alt image line 54"
           />
         }
+        {/*These three buttons are for filtering, they change color when they are already chosen*/}
         <button onClick={() => clickSearch('Clear')}>Clear</button>
         <button
           style={{ color: searchTag.includes('Pregnancy') ? 'green' : 'black' }}
@@ -367,26 +355,48 @@ function Home() {
         >
           Martial
         </button>
-        {console.log('Final')}
-        {console.log(searchTag)}
-        <input type="text" placeHolder="search" onChange={onchange} />
-        <button onClick={healerSearch}>Search</button>
-        {filteredNames.map((val, key) => {
-          if (searchTag.includes(val.tags[0].name)) {
-            console.log(val.firstName);
-            return (
-              <div className="user" key={key}>
-                <p>{val.firstName}</p>
-              </div>
-            );
-          } else if (searchTag.length == 0) {
-            return (
-              <div className="user" key={key}>
-                <p>{val.firstName}</p>
-              </div>
-            );
-          }
-        })}
+        {/*search for a user*/}
+        <input
+          type="text"
+          placeHolder="search"
+          onChange={onChangeSearch}
+          onClick={() => {
+            if (!isSearching) {
+              setIsSearching(true);
+            } else {
+              setIsSearching(false);
+            }
+          }}
+        />
+        <button
+          onClick={() => {
+            if (!isSearching) {
+              setIsSearching(true);
+            } else {
+              setIsSearching(false);
+            }
+          }}
+        >
+          Search{'.'}
+        </button>
+        {/*filtering users (for tags and names)*/}
+        {isSearching &&
+          filteredNames.map((val, key) => {
+            if (searchTag.includes(val.tags[0].name)) {
+              console.log(val.firstName);
+              return (
+                <div className="user" key={key}>
+                  <p>{val.firstName}</p>
+                </div>
+              );
+            } else if (searchTag.length == 0) {
+              return (
+                <div className="user" key={key}>
+                  <p>{val.firstName}</p>
+                </div>
+              );
+            }
+          })}
         <Paper className={classes.flavorContents}>
           <Typography variant="h3" gutterBottom color="black">
             Global Healing Network

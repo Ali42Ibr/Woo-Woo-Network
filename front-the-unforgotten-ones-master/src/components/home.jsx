@@ -189,40 +189,26 @@ function Home() {
       }
     );
     const body = await response.json();
-    console.log(body);
     setSearchArray(body);
-    console.log(body[0].tags[0].name);
   }
 
   function clickSearch(props) {
-    console.log('New click');
     if (props == 'Clear') {
       setSearchTag([]);
-      console.log('Clearing');
     } else if (searchTag.includes(props)) {
-      console.log('Already Here');
       let newSearchTag = [];
       for (let i = 0; i < searchTag.length; i++) {
         if (searchTag[i] != props && searchTag[i] != undefined) {
           newSearchTag.push(searchTag[i]);
-          console.log(newSearchTag);
         }
       }
       setSearchTag(newSearchTag);
-    } else {
-      console.log('New item');
+    } else if (!searchTag.includes(props)) {
       let newArray = searchTag;
       newArray.push(props);
-      setSearchTag(newArray);
-    }
-    filterTags();
-  }
-
-  function filterTags() {
-    console.log('Props');
-    console.log(searchTag);
-    for (let i = 0; i < searchArray.length; i++) {
-      console.log(1);
+      setSearchTag([...newArray]);
+    } else {
+      console.log('Weird else');
     }
   }
 
@@ -307,11 +293,37 @@ function Home() {
         console.log(Error);
       }
     })();
+
+    (async () => {
+      try {
+        const response = await fetch(
+          process.env.REACT_APP_API_DOMAIN + '/healers/healerSearch',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: 1,
+              userLocation: '3075 Vint Road Kelowna',
+            }),
+          }
+        );
+        const body = await response.json();
+        setSearchArray(body);
+      } catch (Error) {
+        console.log(Error);
+      }
+    })();
   }, []);
 
   onchange = (e) => {
     setSearch(e.target.value);
   };
+
+  function fullSearchFunction(props) {
+    clickSearch(props);
+  }
 
   const searchThis = search;
   const filteredNames = searchArray.filter((person) => {
@@ -337,26 +349,43 @@ function Home() {
           />
         }
         <button onClick={() => clickSearch('Clear')}>Clear</button>
-        <button onClick={() => clickSearch('Pregnancy')}>Pregnancy</button>
-        <button onClick={() => clickSearch('Therapy')}>Therapy</button>
-        <button onClick={() => clickSearch('Marital')}>Marital</button>
+        <button
+          style={{ color: searchTag.includes('Pregnancy') ? 'green' : 'black' }}
+          onClick={() => fullSearchFunction('Pregnancy')}
+        >
+          Pregnancy
+        </button>
+        <button
+          style={{ color: searchTag.includes('Therapy') ? 'green' : 'black' }}
+          onClick={() => fullSearchFunction('Therapy')}
+        >
+          Therapy
+        </button>
+        <button
+          style={{ color: searchTag.includes('Martial') ? 'green' : 'black' }}
+          onClick={() => fullSearchFunction('Martial')}
+        >
+          Martial
+        </button>
         {console.log('Final')}
         {console.log(searchTag)}
-        <input
-          type="text"
-          placeHolder="search"
-          onChange={onchange}
-          onClick={healerSearch}
-        />
+        <input type="text" placeHolder="search" onChange={onchange} />
+        <button onClick={healerSearch}>Search</button>
         {filteredNames.map((val, key) => {
           if (searchTag.includes(val.tags[0].name)) {
             console.log(val.firstName);
+            return (
+              <div className="user" key={key}>
+                <p>{val.firstName}</p>
+              </div>
+            );
+          } else if (searchTag.length == 0) {
+            return (
+              <div className="user" key={key}>
+                <p>{val.firstName}</p>
+              </div>
+            );
           }
-          return (
-            <div className="user" key={key}>
-              <p>{val.firstName}</p>
-            </div>
-          );
         })}
         <Paper className={classes.flavorContents}>
           <Typography variant="h3" gutterBottom color="black">

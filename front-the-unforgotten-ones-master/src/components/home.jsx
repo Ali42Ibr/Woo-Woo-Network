@@ -336,6 +336,7 @@ function Home() {
           />
         }
         {/*These three buttons are for filtering, they change color when they are already chosen*/}
+        <p>Click a tag to add or remove it to search filter</p>
         <button onClick={() => clickSearch('Clear')}>Clear</button>
         <button
           style={{ color: searchTag.includes('Pregnancy') ? 'green' : 'black' }}
@@ -350,10 +351,10 @@ function Home() {
           Therapy
         </button>
         <button
-          style={{ color: searchTag.includes('Martial') ? 'green' : 'black' }}
-          onClick={() => fullSearchFunction('Martial')}
+          style={{ color: searchTag.includes('Marital') ? 'green' : 'black' }}
+          onClick={() => fullSearchFunction('Marital')}
         >
-          Martial
+          Marital
         </button>
         {/*search for a user*/}
         <input

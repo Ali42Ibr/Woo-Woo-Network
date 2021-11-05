@@ -78,7 +78,7 @@ export const createHealerBulk = async () => {
   },
   {
     id:2,
-    name:"Martial"
+    name:"Marital"
   }]
 
   await db.Tag.bulkCreate(generalTags, {

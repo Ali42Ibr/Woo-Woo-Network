@@ -59,7 +59,7 @@ onchange = e => {
 
 render() {
 
-    const {search} = this.state;
+    const {search} = this.state.search;
     const filteredNames = this.state.array.filter( person => {
       return person.name.toLowerCase().indexOf( search.toLowerCase()) !== -1
     })

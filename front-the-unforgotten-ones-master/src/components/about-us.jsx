@@ -1,5 +1,17 @@
 /**  
  
+//  updated message 
+
+Kimberlee Klein has worked on projects like developing pregnancy loss
+programs to help people with grief and an app that will help people give
+away their leftovers that would otherwise go bad. She came up with the 
+idea for Woo Woo Net after noticing a trend with the healers she&apos;s
+seen in her career. Many healers find it difficult to market their
+services and accept payments from their clients. The project aims to
+make it easier for both clients and healers to interact with one another. 
+
+
+
 */
 import React, { useState } from 'react';
 import Copyright from './copyright.jsx';
@@ -78,14 +90,16 @@ const PageContent = (props) => {
         the social entrepreneur, Kimberlee Klein.
       </Typography>
       <Typography variant="body1" className={classes.text}>
+        The project has since been built upon by students at UBCO.
+      </Typography>
+      <Typography variant="body1" className={classes.text}>
         Kimberlee Klein has worked on projects like developing pregnancy loss
         programs to help people with grief and an app that will help people give
-        away their leftovers that would otherwise go bad. She conceived this
-        project after noticing a trend with the healers she&apos;s interacted
-        with in her career; that many healers find it difficult to market their
-        services and accept payments from their clients. The project aims to
-        make it easier for clients to search for healers that fit their needs
-        and the interaction between client and healer as smooth as possible.
+        away their leftovers that would otherwise go bad. She came up with the
+        idea for Woo Woo Net after noticing a trend with the healers she&apos;s
+        interacted with in her career. Many healers find it difficult to list
+        their services and accept payments from clients. The project aims to
+        make it easier for both clients and healers to interact with each other.
       </Typography>
       {/*<br></br>
       <br></br>

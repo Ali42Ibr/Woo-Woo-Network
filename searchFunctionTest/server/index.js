@@ -8,15 +8,21 @@ import axios from 'axios';
 
 const params = {
   access_key: '5af926703add4889573373062dc15bfb',
-  query: '3075 Vint Road kelowna'
+  query: '155 Hollywood Rd N Kelowna BC Canada V1X 6B4'
 }
 
 axios.get('http://api.positionstack.com/v1/forward', {params})
   .then(response => {
-    console.log(response.data);
+    console.log(response.data.data[0].latitude);
+    console.log(response.data.data[0].longitude);
   }).catch(error => {
     console.log(error);
   });
+
+  console.log(params.query)
+
+
+console.log( Math.abs(vincenty.distVincenty(30.5, -100.6, 31.7, -101.8).distance) );
 
 const users = [
   {

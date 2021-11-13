@@ -34,7 +34,76 @@ export const createHealerBulk = async () => {
     returning: true,
   });
   // create healer location
+
+
+  //adding real user location for testing purposes
+
+  const fakeStreetAddress = ['380 Providence Ave 28','710 Tozer Crt','1490 Gordon Dr 301','3335 Richter St 203','2479 BC-97','1555 Banks Rd','120 Old Vernon Rd'
+,'2120 Harvey Ave','1938 Kane Rd','155 Hollywood Rd N'];
+  const fakeCity = 'Kelowna';
+  const fakeState = 'BC';
+  const fakeCountry = 'Canada';
+  const fakeZipCode = ['V1W 4Z6','V1W 2P8','V1Y 3G5','V1W 3Y1','V1X 4J2','V1X 7Y8','V1X 4R2','V1Y 6G8','V1V 2J9','V1X 6B4'];
+
   const healerLocation = response.map((user) => {
+    return {
+      address: fakeStreetAddress[Number(user.id)-1],
+      city: fakeCity,
+      province: fakeState,
+      country: fakeCountry,
+      postalCode: fakeZipCode[Number(user.id)-1],
+      userId: user.id,
+    }
+  });
+
+
+
+  /*const healerTags = response.map((user) => {
+    return {
+
+    }
+  })*/
+
+  response = await db.Location.bulkCreate(healerLocation, {
+    returning: true,
+  });
+
+  const generalTags = [{
+    id:0,
+    name:"Pregnancy",
+  },
+  {
+    id:1,
+    name:"Therapy",
+  },
+  {
+    id:2,
+    name:"Marital"
+  }]
+
+  await db.Tag.bulkCreate(generalTags, {
+    returning: true,
+  });
+
+  const fakeIds = [0,1,2,0,1,2,0,1,2,0];
+
+  console.log("Healer Tags");
+
+  const healerTags = response.map((user) => {
+    return {
+      healerProfileId: user.id,
+      tagId: fakeIds[Number(user.id)-1],
+    }
+  });
+
+  console.log(healerTags);
+
+  response = await db.HealerTag.bulkCreate(healerTags, {
+    returning: true,
+  });
+
+  //original function for fake data
+  /*const healerLocation = response.map((user) => {
     return {
       address: faker.address.streetAddress(),
       city: faker.address.city(),
@@ -43,11 +112,8 @@ export const createHealerBulk = async () => {
       postalCode: faker.address.zipCode(),
       userId: user.id,
     }
-  });
+  }); */
 
-  response = await db.Location.bulkCreate(healerLocation, {
-    returning: true,
-  });
 
   // get healer profile id from return response
   const healerProfileIdList = response.map((healerProfile) => healerProfile.id);
@@ -145,3 +211,4 @@ export const seedDataForExistUser = async () => {
   };
   await db.Appointment.bulkCreate(appointmentList, {});
 };
+

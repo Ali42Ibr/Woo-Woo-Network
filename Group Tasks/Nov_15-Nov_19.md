@@ -1,0 +1,1 @@
+For this week all group members are focusing on developing the features for peer testing. Ali has been working on the search bar, while Daven has worked on the mapping functionality. Mohammad and David are working on the administrator page. 

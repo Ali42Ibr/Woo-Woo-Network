@@ -1,21 +1,30 @@
-import { NotFound } from "../general/middlewares/error-handle-middleware/error-code";
-import db from "../general/models";
+import adminPageHelper from './admin-page-helper';
 
 /**
  * Delete user information (either healer or client)
  * At this point, used to delete healers from the healer list displayed on the admin's panel.
  */
 
-const deleteUser = async({ uid }) => {
-    const [rowCount] = await db.User.destroy({
-        where: {
-            uid: uid,
-        },
-        returning: true,
-    });
-    if(rowCount <= 0){
-        throw new NotFound();
+const deleteUserProfile = async(req, res, next) => {
+    try{
+        const { uid } = req.query;
+        const deletedUser = await adminPageHelper.deleteUser(
+            uid
+        );
+        res.status(200).json(deletedUser);
+    } catch(err){
+        next(err);
     }
+    
+    // const [rowCount] = await db.User.destroy({
+    //     where: {
+    //         uid: uid,
+    //     },
+    //     returning: true,
+    // });
+    // if(rowCount <= 0){
+    //     throw new NotFound();
+    // }
 };
 
 
@@ -31,7 +40,7 @@ const deleteUser = async({ uid }) => {
 //const deleteTask;
 
 export default {
-    deleteUser
+    deleteUserProfile
     //createTask
     //updateTask
     //deleteTask

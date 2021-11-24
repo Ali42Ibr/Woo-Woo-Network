@@ -313,12 +313,15 @@ function Home() {
   }
 
   const searchThis = search;
-  const filteredNames = searchLocationUser.filter((person) => {
-    return (
-      person.firstName.toLowerCase().indexOf(searchThis.toLowerCase()) !== -1
-    );
-  });
-
+  try {
+    const filteredNames = searchLocationUser.filter((person) => {
+      return (
+        person.firstName.toLowerCase().indexOf(searchThis.toLowerCase()) !== -1
+      );
+    });
+  } catch (err) {
+    console.log(err);
+  }
   return (
     <div style={{ textAlign: 'center' }}>
       <CssBaseline />
@@ -369,31 +372,36 @@ function Home() {
             }
           }}
         />
-        <button
-          onClick={() => {
-            if (!isSearching) {
-              setIsSearching(true);
-            } else {
-              setIsSearching(false);
-            }
-          }}
-        >
-          Search{'.'}
-        </button>
+        {isSearching && (
+          <button
+            onClick={() => {
+              if (!isSearching) {
+                setIsSearching(true);
+              } else {
+                setIsSearching(false);
+              }
+            }}
+          >
+            Close search
+          </button>
+        )}
         {/*filtering users (for tags and names)*/}
         {isSearching &&
           filteredNames.map((val, key) => {
             if (searchTag.includes(val.tags[0].name)) {
-              console.log(val.firstName);
               return (
                 <div className="user" key={key}>
-                  <p>{val.firstName}</p>
+                  <a href={'/healers/' + val.id}>
+                    {val.firstName + '   ' + val.distance + ' km'}
+                  </a>
                 </div>
               );
             } else if (searchTag.length == 0) {
               return (
                 <div className="user" key={key}>
-                  <p>{val.firstName}</p>
+                  <a href={'/healers/' + val.id}>
+                    {val.firstName + '   ' + val.distance + ' km'}
+                  </a>
                 </div>
               );
             }

@@ -47,7 +47,7 @@ const getOtherHealerList = async (req, res, next) => {
   //initializing position stack api
 
   let params = {
-    access_key: '5af926703add4889573373062dc15bfb',
+    access_key: 'af0ace1cd4322f5ccc0203a3ce2c3a11',
     query: ''
   }
   
@@ -72,7 +72,7 @@ const getOtherHealerList = async (req, res, next) => {
 
 
     const getMyCoordinates = async (query) => {
-     params.query = query
+     params.query = query;
      const resp = await axios.get('http://api.positionstack.com/v1/forward', {params})
      const myLat = (resp.data.data[0].latitude);
      const myLong = (resp.data.data[0].longitude);
@@ -114,6 +114,7 @@ const getOtherHealerList = async (req, res, next) => {
 
     }
     console.log(userAndDistance);
+    console.log(123);
 
 
     let otherUsers = userAndDistance.sort(function(a, b) {
@@ -131,13 +132,15 @@ const getOtherHealerList = async (req, res, next) => {
     for (let i = 0; i < 10; i++){
       for (let j = 0; j < 10; j++){
       if (otherUsers[i].id == healerList[j].id){
-        newHealerList.push(healerList[j])
+        healerList[j].distance = (otherUsers[i].distance/1000).toFixed(2);
+        newHealerList.push(healerList[j]);
       }
     }
     }
 
     console.log(otherUsers);
     console.log(newHealerList);
+    console.log("x123");
 
 
 

@@ -3,6 +3,7 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 import PeopleRoundedIcon from '@material-ui/icons/PeopleRounded';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import * as ReactBootStrap from 'react-bootstrap';
 import {
   Grid,
   Paper,
@@ -164,6 +165,7 @@ function Home() {
   const [search, setSearch] = useState('');
   const [searchTag, setSearchTag] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const LIMIT_MOBILE = 4;
   const LIMIT_WEB = 8;
@@ -274,8 +276,11 @@ function Home() {
             }),
           }
         );
-        const body = await response.json();
-        setSearchLocationUser(body);
+        const data = await response.json().then((res) => {
+          console.log(res);
+          setSearchLocationUser(res);
+        });
+        setIsLoading(true);
       } catch (Error) {
         console.log(Error);
       }
@@ -312,9 +317,11 @@ function Home() {
     clickSearch(props);
   }
 
+  let filteredNames = [];
+
   const searchThis = search;
   try {
-    const filteredNames = searchLocationUser.filter((person) => {
+    filteredNames = searchLocationUser.filter((person) => {
       return (
         person.firstName.toLowerCase().indexOf(searchThis.toLowerCase()) !== -1
       );
@@ -388,11 +395,16 @@ function Home() {
         {/*filtering users (for tags and names)*/}
         {isSearching &&
           filteredNames.map((val, key) => {
+            console.log(val.tags[0].name);
             if (searchTag.includes(val.tags[0].name)) {
               return (
                 <div className="user" key={key}>
                   <a href={'/healers/' + val.id}>
-                    {val.firstName + '   ' + val.distance + ' km'}
+                    {val.firstName +
+                      '   ' +
+                      val.distance +
+                      ' km /' +
+                      val.tags[0].name}
                   </a>
                 </div>
               );
@@ -406,6 +418,7 @@ function Home() {
               );
             }
           })}
+        {isLoading ? <p></p> : <ReactBootStrap.Spinner animation="border" />}
         <Paper className={classes.flavorContents}>
           <Typography variant="h3" gutterBottom color="black">
             Global Healing Network

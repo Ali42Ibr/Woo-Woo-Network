@@ -106,7 +106,7 @@ const getOtherHealerList = async (req, res, next) => {
       
       console.log((healerProfile.location.address));
 
-
+      
       const otherCoordinates = await getMyCoordinates(healerLocationString);
 
       userAndDistance.push({distance:(Math.abs(vincenty.distVincenty(myLat, myLong, otherCoordinates[0], otherCoordinates[1]).distance)),id:i});

@@ -106,10 +106,13 @@ const getOtherHealerList = async (req, res, next) => {
       
       console.log((healerProfile.location.address));
 
-      
-      const otherCoordinates = await getMyCoordinates(healerLocationString);
+      let otherCoordinates = ["1","2"];
 
-      userAndDistance.push({distance:(Math.abs(vincenty.distVincenty(myLat, myLong, otherCoordinates[0], otherCoordinates[1]).distance)),id:i});
+      while (!(otherCoordinates[0]+otherCoordinates[0] == otherCoordinates[0]*2) && !(otherCoordinates[1]+otherCoordinates[1] == otherCoordinates[1]*2)){
+        otherCoordinates = await getMyCoordinates(healerLocationString);
+        console.log(otherCoordinates);
+        console.log("Inside while");
+      }
 
 
     }
@@ -124,6 +127,9 @@ const getOtherHealerList = async (req, res, next) => {
 
 
     let newHealerList = [];
+
+    console.log(otherUsers[1]);
+    console.log(healerList[1]);
 
     console.log(otherUsers[1].id)
     console.log(healerList[1].id)

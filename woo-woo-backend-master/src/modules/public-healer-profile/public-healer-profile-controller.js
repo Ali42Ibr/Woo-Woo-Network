@@ -113,7 +113,7 @@ const getOtherHealerList = async (req, res, next) => {
         console.log(otherCoordinates);
         console.log("Inside while");
       }
-
+      userAndDistance.push({distance:(Math.abs(vincenty.distVincenty(myLat, myLong, otherCoordinates[0], otherCoordinates[1]).distance)),id:i});
 
     }
     console.log(userAndDistance);
@@ -127,9 +127,6 @@ const getOtherHealerList = async (req, res, next) => {
 
 
     let newHealerList = [];
-
-    console.log(otherUsers[1]);
-    console.log(healerList[1]);
 
     console.log(otherUsers[1].id)
     console.log(healerList[1].id)

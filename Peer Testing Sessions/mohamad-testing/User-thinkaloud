@@ -1,0 +1,36 @@
+User ThinkAloud Session (Admin):
+
+Admin: Mohamad Agha
+Participant: Anthony Abou Khalil
+
+User was instructed to complete specific testing steps as shown via a testing document made by the group.
+
+User started by navigating to the sign up on the top navigation bar. 
+
+User states that he found the Sign up page with no trouble whatsoever, and started creating the test account by filling fields.
+
+User is alerted that an account is created, and they move to the login page instantly as it's by the sign up on the navbar.
+
+User fills in account details and is taken the home page with no trouble.
+
+User gets the "verify email before continuing alert", and was told that it's not needed for the sake of the testing.
+
+User goes on to test the search feature, where he clicks a tag first then the search field.
+
+Healers with the selected tag are properly loaded, he then clicks one of the healers and tries to book.
+
+User notices the booking functionality isn't working since the account is not verified so they move on.
+
+User then tries to find the About Us Page, they scroll down and access it properly.
+
+Finally, user voices their last step which is to sign up as a healer, 
+and they do with ease by accessing the sign up page again and checking the healer option.
+
+Recording is ended and remote access is stopped, user was then instructed to fill a google form for heuristic evaluation.
+
+Note: Admin showed the user how bookings would work if a verified user was on the website, where we get a calendar system, 
+and we're able to choose different services and prices to book.
+
+User mentioned that the system is simple to use and maneuver, 
+but stated that the verification process should be looked into for the full experience.
+

@@ -11,7 +11,8 @@ import diaryRouter from './modules/diary/diary-router';
 import scheduleRouter from './modules/healer-schedule/schedule-router';
 import cancelFeeRouter from './modules/cancel-fee/cancel-fee-router';
 import appointmentRouter from './modules/appointment/appointment-router';
-import adminRouter from './modules/admin/admin-page-router';
+// admin page under development 
+//import adminRouter from './modules/admin/admin-page-router';
 
 const router = express.Router();
 
@@ -42,6 +43,6 @@ router.use('/cancel-fee', cancelFeeRouter);
 
 router.use('/appointments', appointmentRouter);
 
-router.use('/admin', adminRouter);
+// router.use('/admin', adminRouter);
 
 export default router;

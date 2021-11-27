@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import ProjectRouter from './router';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 /*
  * The theme pallette containing website colors

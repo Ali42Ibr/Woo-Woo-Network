@@ -47,7 +47,6 @@ const getUser = async (req, res, next) => {
 const createUser = async (req, res, next) => {
   try {
     const { email, password, firstName, lastName, isHealer } = req.body;
-    console.log(email);
     const uid = await userHelper.createAuthAccount({
       email,
       password,
@@ -55,6 +54,8 @@ const createUser = async (req, res, next) => {
       isHealer,
     });
     // save user account without password to database
+    console.log("Req.body");
+    console.log(req.body);
     await userHelper.createUser(isHealer, {
       firstName,
       lastName,

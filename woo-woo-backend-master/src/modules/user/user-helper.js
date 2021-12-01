@@ -117,6 +117,7 @@ const createUser = async (isHealer, userInfo) => {
       const user = await User.create(userInfo, {
         returning: true,
       });
+      console.log("Healer? " + isHealer);
       const userEmail = userInfo.email;
       // create paymentAccount
       const paymentAccountId =

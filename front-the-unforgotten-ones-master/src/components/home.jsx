@@ -366,6 +366,24 @@ function Home() {
         >
           Marital
         </button>
+        <button
+          style={{ color: searchTag.includes('Pregnancy') ? 'green' : 'black' }}
+          onClick={() => fullSearchFunction('Pregnancy')}
+        >
+          Pregnancy
+        </button>
+        <button
+          style={{ color: searchTag.includes('Pregnancy') ? 'green' : 'black' }}
+          onClick={() => fullSearchFunction('Pregnancy')}
+        >
+          Pregnancy
+        </button>
+        <button
+          style={{ color: searchTag.includes('Pregnancy') ? 'green' : 'black' }}
+          onClick={() => fullSearchFunction('Pregnancy')}
+        >
+          Pregnancy
+        </button>
         {/*search for a user*/}
         <input
           type="text"

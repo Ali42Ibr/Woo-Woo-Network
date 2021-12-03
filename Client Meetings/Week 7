@@ -1,0 +1,24 @@
+Week 6 (15 Oct 2021):
+
+Going over who still needs to get the backend running, Cass needs to get the data to load
+Gerald is getting a unique error when running his backend, will post error to the 3 teams discord
+Anyone who is having errors should post the error with the @everyone tag
+Going over where the database is stored
+Verifying if people are a healer or a client - possible feature
+Admin dashboard to remove inappropriate and/or illegal accounts - possible feature
+	Remove/disable healers and clients
+	Reporting mechanism
+	Removing ads
+Kimberless can verify accounts after they’ve been created, to not slow down the sign up process
+Simple layout, don’t need to know a lot about the backend to use
+Kimberlee thinks search and location are good features to implement first
+She’ll create a list of tags to search by
+Users should be able to tag what they were dealing with/ what they were getting help with in their review of a healer
+Add map to show healers close to the user
+Search bar shown under global healing network box/just above browse our healers
+Might be hard to validate if a person is a proper healer or not 
+Discussing insurance and the legality of the healers, see if there needs to be anything done code-wise
+Get everyone using the backend by monday
+Stripe will be used for payment
+If there needs to be any systems up and running, let kimberlee know
+Cody will come up with the exact question to ask the former students about the database

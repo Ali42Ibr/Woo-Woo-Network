@@ -79,13 +79,25 @@ export const createHealerBulk = async () => {
   {
     id:2,
     name:"Marital"
+  },
+  {
+    id:3,
+    name:"Addiction"
+  },
+  {
+    id:4,
+    name:"Anxiety"
+  },
+  {
+    id:5,
+    name:"Depression"
   }]
 
   await db.Tag.bulkCreate(generalTags, {
     returning: true,
   });
 
-  const fakeIds = [0,1,2,0,1,2,0,1,2,0];
+  const fakeIds = [0,1,3,4,5,1,2,3,4,5];
 
   console.log("Healer Tags");
 

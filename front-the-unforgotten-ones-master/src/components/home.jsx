@@ -367,22 +367,24 @@ function Home() {
           Marital
         </button>
         <button
-          style={{ color: searchTag.includes('Pregnancy') ? 'green' : 'black' }}
-          onClick={() => fullSearchFunction('Pregnancy')}
+          style={{ color: searchTag.includes('Addiction') ? 'green' : 'black' }}
+          onClick={() => fullSearchFunction('Addiction')}
         >
-          Pregnancy
+          Addiction
         </button>
         <button
-          style={{ color: searchTag.includes('Pregnancy') ? 'green' : 'black' }}
-          onClick={() => fullSearchFunction('Pregnancy')}
+          style={{ color: searchTag.includes('Anxiety') ? 'green' : 'black' }}
+          onClick={() => fullSearchFunction('Anxiety')}
         >
-          Pregnancy
+          Anxiety
         </button>
         <button
-          style={{ color: searchTag.includes('Pregnancy') ? 'green' : 'black' }}
-          onClick={() => fullSearchFunction('Pregnancy')}
+          style={{
+            color: searchTag.includes('Depression') ? 'green' : 'black',
+          }}
+          onClick={() => fullSearchFunction('Depression')}
         >
-          Pregnancy
+          Depression
         </button>
         {/*search for a user*/}
         <input

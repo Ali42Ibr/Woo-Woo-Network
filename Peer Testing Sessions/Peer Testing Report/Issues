@@ -1,0 +1,45 @@
+
+
+
+Issue:
+ 
+Fixing the user login process as it displays that the user is already signed in / needs verification.
+
+Priority: Medium-High
+
+Issue: 
+
+Make the searching functionality more dynamic. Possibly faster? Maybe tags should display users when selected even before the search field is.
+
+Priority: Medium
+
+Issue: 
+
+React state management with logged in state. Displaying user name when logged in for example.
+
+Priority: Low
+
+Issue: 
+
+Add more documentation to help the user maneuver the site and learn about services provided.
+
+Priority: Medium-Low
+
+Issue: 
+
+Work on reducing visual clutter and making the website more visually appealing and consistent.
+
+Priority: Medium-Low
+
+Issue: 
+
+Change search filters to drop down menu as list gets longer
+
+Priority: Low
+
+Issue: 
+
+When registering as a new user, automatically redirect to the login page rather than popup window with prompt.
+
+Priority: Medium - low
+

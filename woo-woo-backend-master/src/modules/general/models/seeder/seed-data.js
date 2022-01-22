@@ -236,7 +236,7 @@ export const createHealerBulk = async () => {
       serviceId: serviceListRes[i].id,
       clientId: response[i].id,
       healerProfileId: serviceListRes[i].healerProfileId,
-      sessionTime: faker.date.past(),
+      sessionTime: "2022-01-22 07:32:49.000 +00:00",
       sessionLength: serviceListRes[i].timeLength,
       price: serviceListRes[i].price,
       status: 'paid',
@@ -284,3 +284,38 @@ export const seedDataForExistUser = async () => {
   await db.Appointment.bulkCreate(appointmentList, {});
 };
 
+
+
+const healerScheduleList = [];
+for (let i = 0; i < 10; i++) {
+  healerScheduleList.push({
+    healerProfileId: i+1,
+    startTime: "2022-01-22 08:10:49.750 +00:00",
+    endTime: "2022-01-22 08:50:49.750 +00:00"
+  });
+}
+
+const response = db.HealerSchedule.bulkCreate(healerScheduleList, {
+  returning: true,
+});
+
+
+/**
+healerProfileId: {
+  type: Sequelize.INTEGER,
+  reference: {
+    model: 'HealerProfiles',
+    key: 'id',
+  },
+},
+
+startTime: {
+  allowNull: false,
+  type: Sequelize.DATE, // year should be 20** at this point
+},
+endTime: {
+  allowNull: false,
+  type: Sequelize.DATE, // month should be 1 - 12
+},
+
+*/

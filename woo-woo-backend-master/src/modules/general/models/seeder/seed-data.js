@@ -33,6 +33,65 @@ export const createHealerBulk = async () => {
   response = await db.HealerProfile.bulkCreate(healerProfile, {
     returning: true,
   });
+
+  // services for a test user  (id = 6)
+  const name = "Therapy"
+  const price = 1.15
+  const description = "Talk about your problems with me"
+  const timeLength = 30
+  const cleanUpTime = 2
+  const healerProfileId = 6
+  const isAvailableOnline = true
+
+  
+
+
+
+
+    /**id: {
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
+    type: Sequelize.INTEGER,
+  },
+  name: {
+    type: Sequelize.STRING,
+  },
+  price: {
+    type: Sequelize.FLOAT,
+  },
+  description: {
+    type: Sequelize.STRING,
+  },
+  timeLength: {
+    type: Sequelize.INTEGER,
+  },
+  cleanUpTime: {
+    type: Sequelize.INTEGER,
+  },
+  healerProfileId: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    reference: {
+      model: 'HealerProfiles',
+      key: 'id',
+    },
+  },
+  isAvailableOnline: {
+    type: Sequelize.BOOLEAN,
+  },
+  createdAt: {
+    allowNull: false,
+    type: Sequelize.DATE,
+  },
+  updatedAt: {
+    allowNull: false,
+    type: Sequelize.DATE,
+  },
+});
+
+**/
+
   // create healer location
 
 
@@ -133,9 +192,11 @@ export const createHealerBulk = async () => {
   let serviceList = [];
   // create healer service
   for(let i = 0; i < 3; i++){
+    console.log("healerProfileIdList")
+    console.log(healerProfileIdList)
     const tempList = healerProfileIdList.map((healerId) => {
       return {
-        name: faker.prod,
+        name: "123",
         description: faker.lorem.sentence(),
         price: faker.datatype.number({ min: 50, max: 100 }),
         healerProfileId: healerId,

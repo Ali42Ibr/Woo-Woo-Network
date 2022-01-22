@@ -187,16 +187,15 @@ export const createHealerBulk = async () => {
 
 
   // get healer profile id from return response
-  const healerProfileIdList = response.map((healerProfile) => healerProfile.id);
+  // the 'response' variable used here was null, im not sure what they were trying to do
+  const healerProfileIdList = [1,2,3,4];
 
   let serviceList = [];
   // create healer service
   for(let i = 0; i < 3; i++){
-    console.log("healerProfileIdList")
-    console.log(healerProfileIdList)
     const tempList = healerProfileIdList.map((healerId) => {
       return {
-        name: "123",
+        name: faker.prod,
         description: faker.lorem.sentence(),
         price: faker.datatype.number({ min: 50, max: 100 }),
         healerProfileId: healerId,

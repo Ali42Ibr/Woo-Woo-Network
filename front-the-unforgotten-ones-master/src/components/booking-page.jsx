@@ -194,6 +194,8 @@ const TimeSelector = (props) => {
   return (
     <Box className={classes.timeContainer}>
       {/* We are mapping the available time slots for a week period here. We will always have 7 time selectors. */}
+      {console.log('time slots')}
+      {console.log(availableTimeSlots)}
 
       {availableTimeSlots.map((day, i) => (
         <TimeSelector_Day
@@ -221,7 +223,10 @@ const TimeSelector_Day = (props) => {
       <Typography variant="h6" className={classes.weekText}>
         {moment(props.date).format('ddd')}
       </Typography>
-      {/* For each available time we will render a time button. */}
+      {
+        /* For each available time we will render a time button. */
+        console.log(props.availableSlots)
+      }
       {props.availableSlots.map((slot, i) =>
         slot != undefined ? (
           <TimeButton key={i} time={slot} index={i} date={props.date} />

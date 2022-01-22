@@ -33,6 +33,65 @@ export const createHealerBulk = async () => {
   response = await db.HealerProfile.bulkCreate(healerProfile, {
     returning: true,
   });
+
+  // services for a test user  (id = 6)
+  const name = "Therapy"
+  const price = 1.15
+  const description = "Talk about your problems with me"
+  const timeLength = 30
+  const cleanUpTime = 2
+  const healerProfileId = 6
+  const isAvailableOnline = true
+
+  
+
+
+
+
+    /**id: {
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
+    type: Sequelize.INTEGER,
+  },
+  name: {
+    type: Sequelize.STRING,
+  },
+  price: {
+    type: Sequelize.FLOAT,
+  },
+  description: {
+    type: Sequelize.STRING,
+  },
+  timeLength: {
+    type: Sequelize.INTEGER,
+  },
+  cleanUpTime: {
+    type: Sequelize.INTEGER,
+  },
+  healerProfileId: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    reference: {
+      model: 'HealerProfiles',
+      key: 'id',
+    },
+  },
+  isAvailableOnline: {
+    type: Sequelize.BOOLEAN,
+  },
+  createdAt: {
+    allowNull: false,
+    type: Sequelize.DATE,
+  },
+  updatedAt: {
+    allowNull: false,
+    type: Sequelize.DATE,
+  },
+});
+
+**/
+
   // create healer location
 
 
@@ -79,13 +138,25 @@ export const createHealerBulk = async () => {
   {
     id:2,
     name:"Marital"
+  },
+  {
+    id:3,
+    name:"Addiction"
+  },
+  {
+    id:4,
+    name:"Anxiety"
+  },
+  {
+    id:5,
+    name:"Depression"
   }]
 
   await db.Tag.bulkCreate(generalTags, {
     returning: true,
   });
 
-  const fakeIds = [0,1,2,0,1,2,0,1,2,0];
+  const fakeIds = [0,1,3,4,5,1,2,3,4,5];
 
   console.log("Healer Tags");
 
@@ -116,7 +187,8 @@ export const createHealerBulk = async () => {
 
 
   // get healer profile id from return response
-  const healerProfileIdList = response.map((healerProfile) => healerProfile.id);
+  // the 'response' variable used here was null, im not sure what they were trying to do
+  const healerProfileIdList = [1,2,3,4];
 
   let serviceList = [];
   // create healer service
@@ -164,7 +236,7 @@ export const createHealerBulk = async () => {
       serviceId: serviceListRes[i].id,
       clientId: response[i].id,
       healerProfileId: serviceListRes[i].healerProfileId,
-      sessionTime: faker.date.past(),
+      sessionTime: "2022-01-22 07:32:49.000 +00:00",
       sessionLength: serviceListRes[i].timeLength,
       price: serviceListRes[i].price,
       status: 'paid',
@@ -212,3 +284,38 @@ export const seedDataForExistUser = async () => {
   await db.Appointment.bulkCreate(appointmentList, {});
 };
 
+
+
+const healerScheduleList = [];
+for (let i = 0; i < 10; i++) {
+  healerScheduleList.push({
+    healerProfileId: i+1,
+    startTime: "2022-01-22 08:10:49.750 +00:00",
+    endTime: "2022-01-22 08:50:49.750 +00:00"
+  });
+}
+
+const response = db.HealerSchedule.bulkCreate(healerScheduleList, {
+  returning: true,
+});
+
+
+/**
+healerProfileId: {
+  type: Sequelize.INTEGER,
+  reference: {
+    model: 'HealerProfiles',
+    key: 'id',
+  },
+},
+
+startTime: {
+  allowNull: false,
+  type: Sequelize.DATE, // year should be 20** at this point
+},
+endTime: {
+  allowNull: false,
+  type: Sequelize.DATE, // month should be 1 - 12
+},
+
+*/

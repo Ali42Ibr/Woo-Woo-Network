@@ -26,7 +26,6 @@ import paymentServiceHelper from '../../general/utils/payment/payment-service-he
  */
 const getHealerAvailableTimeSlots = async (req, res, next) => {
   try {
-    console.log(req.query);
     // get startDate and endDate and timezone and healer profile id
     let { startDate, endDate, healer: healerProfileId, timezone } = req.query;
     // check the timezone
@@ -71,7 +70,6 @@ const getHealerAvailableTimeSlots = async (req, res, next) => {
         // calculate time slots
         for (let period of workingPeriods) {
           const { startTime, endTime } = period;
-
           const bookedSlots = await appointmentHelper.getBookedSlots({
             startTime,
             endTime,
@@ -87,6 +85,14 @@ const getHealerAvailableTimeSlots = async (req, res, next) => {
           timeSlotInDay.push(...availableSlots);
           bookSlotInDay.push(...bookedSlots);
         }
+
+        console.log("bookSlotInDay")
+        console.log(bookSlotInDay)
+
+        console.log("timeSlotInDay")
+        console.log(timeSlotInDay)
+
+
         // format the result
         const dateFormat = moment(date).format('YYYY-MM-DD');
         result.push({

@@ -263,10 +263,11 @@ function SignUp() {
                       body: JSON.stringify(data),
                     }
                   );
+                  console.log(response.status);
                   if (response.status == 201) {
                     history.push('/login'); // sends you to the login page after you make the account
                   } else {
-                    alert('Succesfully created! Please login.');
+                    alert('Email already exists.');
                   }
                   //maybe I should make it test to see if the account actually gets made but... no time!
                 } catch (error) {

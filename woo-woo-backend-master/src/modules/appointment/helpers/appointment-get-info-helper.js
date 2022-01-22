@@ -22,6 +22,12 @@ const findTimeSlot = ({
   // find interval time
   const interval = Math.ceil(intervalTime / 5) * 5; // the minimum interval time is 15 minutes
 
+  console.log(start);
+  console.log(end);
+  console.log(intervalTime);
+  console.log(blockTimeList);
+  console.log(timezone);
+
   // find unblocked time
   const unblockedPeriods = [{ start, end }];
   // need to test this one later on
@@ -183,7 +189,7 @@ const getBookedSlots = async ({ startTime, endTime, healerProfileId }) => {
     bookedSlotQueryResult.length > 0
       ? bookedSlotQueryResult.map((slot) => slot.dataValues)
       : [];
-  console.log(bookedSlots);
+  
   return bookedSlots;
 };
 

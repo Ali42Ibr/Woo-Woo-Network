@@ -166,6 +166,7 @@ function Home() {
   const [searchTag, setSearchTag] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  var [user, setUser] = useState(sessionStorage.getItem('token'));
 
   const LIMIT_MOBILE = 4;
   const LIMIT_WEB = 8;
@@ -366,6 +367,26 @@ function Home() {
         >
           Marital
         </button>
+        <button
+          style={{ color: searchTag.includes('Addiction') ? 'green' : 'black' }}
+          onClick={() => fullSearchFunction('Addiction')}
+        >
+          Addiction
+        </button>
+        <button
+          style={{ color: searchTag.includes('Anxiety') ? 'green' : 'black' }}
+          onClick={() => fullSearchFunction('Anxiety')}
+        >
+          Anxiety
+        </button>
+        <button
+          style={{
+            color: searchTag.includes('Depression') ? 'green' : 'black',
+          }}
+          onClick={() => fullSearchFunction('Depression')}
+        >
+          Depression
+        </button>
         {/*search for a user*/}
         <input
           type="text"
@@ -473,7 +494,7 @@ function Home() {
         </Grid>
         <Grid item xs={2}></Grid>
         <Grid item xs={12}>
-          <DefaultButton href="/signup" contents="Sign Up Here" />
+          {!user && <DefaultButton href="/signup" contents="Sign Up Here" />}
         </Grid>
       </Grid>
       {/* healers info */}

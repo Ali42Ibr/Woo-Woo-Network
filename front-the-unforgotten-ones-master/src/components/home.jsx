@@ -4,6 +4,8 @@ import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 import PeopleRoundedIcon from '@material-ui/icons/PeopleRounded';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import * as ReactBootStrap from 'react-bootstrap';
+import { default as ReactSelect } from 'react-select';
+import { components } from 'react-select';
 import {
   Grid,
   Paper,
@@ -18,6 +20,7 @@ import {
   CardContent,
   CardMedia,
   useMediaQuery,
+  Dropdown,
 } from '@material-ui/core';
 //import jwt_decode from 'jwt-decode';
 import backgroundImage from '../media/background.jpeg';
@@ -125,6 +128,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// for tag dropdown menu
+const Option = (props) => {
+  return (
+    <div>
+      <components.Option {...props}>
+        <input
+          type="checkbox"
+          checked={props.isSelected}
+          onChange={() => null}
+        />{' '}
+        <label>{props.label}</label>
+      </components.Option>
+    </div>
+  );
+};
+
+export const colourOptions = [
+  { value: 'Anxiety', label: 'Anxiety' },
+  { value: 'Life patterns', label: 'Life patterns' },
+  { value: 'Love life', label: 'Love life' },
+  { value: 'Family relationships', label: 'Family relationships' },
+  { value: 'Depression', label: 'Depression' },
+];
+
 const TagSet = (props) => {
   const classes = useStyles();
 
@@ -166,6 +193,7 @@ function Home() {
   const [searchTag, setSearchTag] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [optionSelected, setOptionSelected] = useState(null);
   var [user, setUser] = useState(sessionStorage.getItem('token'));
 
   const LIMIT_MOBILE = 4;
@@ -320,6 +348,11 @@ function Home() {
 
   let filteredNames = [];
 
+  function handleChange(selected) {
+    setOptionSelected(selected);
+    console.log(selected);
+  }
+
   const searchThis = search;
   try {
     filteredNames = searchLocationUser.filter((person) => {
@@ -350,34 +383,36 @@ function Home() {
         <p>Click a tag to add or remove it to search filter</p>
         <button onClick={() => clickSearch('Clear')}>Clear</button>
         <button
-          style={{ color: searchTag.includes('Pregnancy') ? 'green' : 'black' }}
-          onClick={() => fullSearchFunction('Pregnancy')}
-        >
-          Pregnancy
-        </button>
-        <button
-          style={{ color: searchTag.includes('Therapy') ? 'green' : 'black' }}
-          onClick={() => fullSearchFunction('Therapy')}
-        >
-          Therapy
-        </button>
-        <button
-          style={{ color: searchTag.includes('Marital') ? 'green' : 'black' }}
-          onClick={() => fullSearchFunction('Marital')}
-        >
-          Marital
-        </button>
-        <button
-          style={{ color: searchTag.includes('Addiction') ? 'green' : 'black' }}
-          onClick={() => fullSearchFunction('Addiction')}
-        >
-          Addiction
-        </button>
-        <button
           style={{ color: searchTag.includes('Anxiety') ? 'green' : 'black' }}
           onClick={() => fullSearchFunction('Anxiety')}
         >
           Anxiety
+        </button>
+        <button
+          style={{
+            color: searchTag.includes('Life patterns') ? 'green' : 'black',
+          }}
+          onClick={() => fullSearchFunction('Life patterns')}
+        >
+          Life patterns
+        </button>
+        <button
+          style={{
+            color: searchTag.includes('Family relationships')
+              ? 'green'
+              : 'black',
+          }}
+          onClick={() => fullSearchFunction('Family relationships')}
+        >
+          Family relationships
+        </button>
+        <button
+          style={{
+            color: searchTag.includes('Life purpose') ? 'green' : 'black',
+          }}
+          onClick={() => fullSearchFunction('Life purpose')}
+        >
+          Life purpose
         </button>
         <button
           style={{
@@ -387,32 +422,6 @@ function Home() {
         >
           Depression
         </button>
-        {/*search for a user*/}
-        <input
-          type="text"
-          placeHolder="search"
-          onChange={onChangeSearch}
-          onClick={() => {
-            if (!isSearching) {
-              setIsSearching(true);
-            } else {
-              setIsSearching(false);
-            }
-          }}
-        />
-        {isSearching && (
-          <button
-            onClick={() => {
-              if (!isSearching) {
-                setIsSearching(true);
-              } else {
-                setIsSearching(false);
-              }
-            }}
-          >
-            Close search
-          </button>
-        )}
         {/*filtering users (for tags and names)*/}
         {isSearching &&
           filteredNames.map((val, key) => {
@@ -502,18 +511,66 @@ function Home() {
         <a id="healers_section">
           <PageTitle contents="Our Healers" />
         </a>
+        <input
+          type="text"
+          placeHolder="search"
+          onChange={onChangeSearch}
+          onClick={() => {
+            if (!isSearching) {
+              setIsSearching(true);
+            } else {
+              setIsSearching(false);
+            }
+          }}
+        />
+        <div style={{ width: '300px' }}>
+          <ReactSelect
+            options={colourOptions}
+            isMulti
+            closeMenuOnSelect={false}
+            hideSelectedOptions={false}
+            components={{
+              Option,
+            }}
+            onChange={() => fullSearchfunction(optionSelected)}
+            allowSelectAll={true}
+            value={optionSelected}
+          />
+        </div>
         {/* <Container className={classes.container}> */}
         <Grid container spacing={3}>
           {/* MAPPING             */}
-          {healers.slice(0, limit).map((healerName, i) => (
-            <Healer
-              healerName={healerName.firstName + ' ' + healerName.lastName}
-              healerDesc={healerName.description}
-              key={healerName + i}
-              userid={healerName.id}
-              healerImage={healerName.photo}
-            />
-          ))}
+          {filteredNames.slice(0, limit).map((healerName, i) => {
+            if (searchTag.includes(healerName.tags[0].name)) {
+              return (
+                <>
+                  <Healer
+                    healerName={
+                      healerName.firstName + ' ' + healerName.lastName
+                    }
+                    healerDesc={healerName.description}
+                    key={healerName + i}
+                    userid={healerName.id}
+                    healerImage={healerName.photo}
+                  />
+                </>
+              );
+            } else if (searchTag.length == 0) {
+              return (
+                <>
+                  <Healer
+                    healerName={
+                      healerName.firstName + ' ' + healerName.lastName
+                    }
+                    healerDesc={healerName.description}
+                    key={healerName + i}
+                    userid={healerName.id}
+                    healerImage={healerName.photo}
+                  />
+                </>
+              );
+            }
+          })}
           <Grid item xs={12}>
             <Grid container>
               <Grid item xs={3}></Grid>

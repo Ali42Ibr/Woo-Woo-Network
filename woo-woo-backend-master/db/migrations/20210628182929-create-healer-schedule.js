@@ -15,6 +15,7 @@ module.exports = {
           key: 'id',
         },
       },
+      
       startTime: {
         allowNull: false,
         type: Sequelize.DATE, // year should be 20** at this point

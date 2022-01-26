@@ -127,30 +127,10 @@ export const createHealerBulk = async () => {
     returning: true,
   });
 
-  const generalTags = [{
-    id:0,
-    name:"Pregnancy",
-  },
-  {
-    id:1,
-    name:"Therapy",
-  },
-  {
-    id:2,
-    name:"Marital"
-  },
-  {
-    id:3,
-    name:"Addiction"
-  },
-  {
-    id:4,
-    name:"Anxiety"
-  },
-  {
-    id:5,
-    name:"Depression"
-  }]
+  const generalTags = [
+  {id:0,name:"Anxiety",},{id:1,name:"Life patterns",},{id:2,name:"Love life"},{id:3,name:"Family relationships"},{id:4,name:"Life purpose"},
+  {id:5,name:"Depression"},
+]
 
   await db.Tag.bulkCreate(generalTags, {
     returning: true,
@@ -236,7 +216,7 @@ export const createHealerBulk = async () => {
       serviceId: serviceListRes[i].id,
       clientId: response[i].id,
       healerProfileId: serviceListRes[i].healerProfileId,
-      sessionTime: "2022-01-22 07:32:49.000 +00:00",
+      sessionTime: "2022-01-26 12:00:00.000 +00:00",
       sessionLength: serviceListRes[i].timeLength,
       price: serviceListRes[i].price,
       status: 'paid',
@@ -286,12 +266,13 @@ export const seedDataForExistUser = async () => {
 
 
 
+//change start and end times for testing, probably need to create a better seed structure
 const healerScheduleList = [];
 for (let i = 0; i < 10; i++) {
   healerScheduleList.push({
     healerProfileId: i+1,
-    startTime: "2022-01-22 08:10:49.750 +00:00",
-    endTime: "2022-01-22 08:50:49.750 +00:00"
+    startTime: "2022-01-26 09:00:00.000 +00:00",
+    endTime: "2022-01-26 11:00:00.000 +00:00"
   });
 }
 

@@ -4,6 +4,8 @@ import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 import PeopleRoundedIcon from '@material-ui/icons/PeopleRounded';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import * as ReactBootStrap from 'react-bootstrap';
+import { default as ReactSelect } from 'react-select';
+import { components } from 'react-select';
 import {
   Grid,
   Paper,
@@ -18,6 +20,7 @@ import {
   CardContent,
   CardMedia,
   useMediaQuery,
+  Dropdown,
 } from '@material-ui/core';
 //import jwt_decode from 'jwt-decode';
 import backgroundImage from '../media/background.jpeg';
@@ -125,6 +128,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// for tag dropdown menu
+const Option = (props) => {
+  return (
+    <div>
+      <components.Option {...props}>
+        <input
+          type="checkbox"
+          checked={props.isSelected}
+          onChange={() => null}
+        />{' '}
+        <label>{props.label}</label>
+      </components.Option>
+    </div>
+  );
+};
+
+export const colourOptions = [
+  { value: 'anxiety', label: 'Anxiety' },
+  { value: 'life_patterns', label: 'Life patterns' },
+  { value: 'love_life', label: 'Love life' },
+  { value: 'family_relationships', label: 'Family relationships' },
+  { value: 'depression', label: 'Depression' },
+];
+
 const TagSet = (props) => {
   const classes = useStyles();
 
@@ -166,6 +193,7 @@ function Home() {
   const [searchTag, setSearchTag] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [optionSelected, setOptionSelected] = useState(null);
   var [user, setUser] = useState(sessionStorage.getItem('token'));
 
   const LIMIT_MOBILE = 4;
@@ -320,6 +348,10 @@ function Home() {
 
   let filteredNames = [];
 
+  function handleChange(selected) {
+    setOptionSelected(selected);
+  }
+
   const searchThis = search;
   try {
     filteredNames = searchLocationUser.filter((person) => {
@@ -350,69 +382,35 @@ function Home() {
         <p>Click a tag to add or remove it to search filter</p>
         <button onClick={() => clickSearch('Clear')}>Clear</button>
         <button
-          style={{ color: searchTag.includes('Pregnancy') ? 'green' : 'black' }}
-          onClick={() => fullSearchFunction('Pregnancy')}
+          style={{ color: searchTag.includes('Anxiety') ? 'green' : 'black' }}
+          onClick={() => fullSearchFunction('Anxiety')}
         >
           Pregnancy
         </button>
         <button
-          style={{ color: searchTag.includes('Therapy') ? 'green' : 'black' }}
-          onClick={() => fullSearchFunction('Therapy')}
+          style={{ color: searchTag.includes('Life patterns') ? 'green' : 'black' }}
+          onClick={() => fullSearchFunction('Life patterns')}
         >
           Therapy
         </button>
         <button
-          style={{ color: searchTag.includes('Marital') ? 'green' : 'black' }}
-          onClick={() => fullSearchFunction('Marital')}
+          style={{ color: searchTag.includes('Family relationships') ? 'green' : 'black' }}
+          onClick={() => fullSearchFunction('Family relationships')}
         >
           Marital
         </button>
         <button
-          style={{ color: searchTag.includes('Addiction') ? 'green' : 'black' }}
-          onClick={() => fullSearchFunction('Addiction')}
+          style={{ color: searchTag.includes('Life purpose') ? 'green' : 'black' }}
+          onClick={() => fullSearchFunction('Life purpose')}
         >
           Addiction
         </button>
         <button
-          style={{ color: searchTag.includes('Anxiety') ? 'green' : 'black' }}
-          onClick={() => fullSearchFunction('Anxiety')}
+          style={{ color: searchTag.includes('Depression') ? 'green' : 'black' }}
+          onClick={() => fullSearchFunction('Depression')}
         >
           Anxiety
         </button>
-        <button
-          style={{
-            color: searchTag.includes('Depression') ? 'green' : 'black',
-          }}
-          onClick={() => fullSearchFunction('Depression')}
-        >
-          Depression
-        </button>
-        {/*search for a user*/}
-        <input
-          type="text"
-          placeHolder="search"
-          onChange={onChangeSearch}
-          onClick={() => {
-            if (!isSearching) {
-              setIsSearching(true);
-            } else {
-              setIsSearching(false);
-            }
-          }}
-        />
-        {isSearching && (
-          <button
-            onClick={() => {
-              if (!isSearching) {
-                setIsSearching(true);
-              } else {
-                setIsSearching(false);
-              }
-            }}
-          >
-            Close search
-          </button>
-        )}
         {/*filtering users (for tags and names)*/}
         {isSearching &&
           filteredNames.map((val, key) => {
@@ -502,10 +500,36 @@ function Home() {
         <a id="healers_section">
           <PageTitle contents="Our Healers" />
         </a>
+        <input
+          type="text"
+          placeHolder="search"
+          onChange={onChangeSearch}
+          onClick={() => {
+            if (!isSearching) {
+              setIsSearching(true);
+            } else {
+              setIsSearching(false);
+            }
+          }}
+        />
+        <div style={{ width: '300px' }}>
+          <ReactSelect
+            options={colourOptions}
+            isMulti
+            closeMenuOnSelect={false}
+            hideSelectedOptions={false}
+            components={{
+              Option,
+            }}
+            onChange={handleChange}
+            allowSelectAll={true}
+            value={optionSelected}
+          />
+        </div>
         {/* <Container className={classes.container}> */}
         <Grid container spacing={3}>
           {/* MAPPING             */}
-          {healers.slice(0, limit).map((healerName, i) => (
+          {filteredNames.slice(0, limit).map((healerName, i) => (
             <Healer
               healerName={healerName.firstName + ' ' + healerName.lastName}
               healerDesc={healerName.description}

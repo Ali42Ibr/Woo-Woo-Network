@@ -127,30 +127,10 @@ export const createHealerBulk = async () => {
     returning: true,
   });
 
-  const generalTags = [{
-    id:0,
-    name:"Pregnancy",
-  },
-  {
-    id:1,
-    name:"Therapy",
-  },
-  {
-    id:2,
-    name:"Marital"
-  },
-  {
-    id:3,
-    name:"Addiction"
-  },
-  {
-    id:4,
-    name:"Anxiety"
-  },
-  {
-    id:5,
-    name:"Depression"
-  }]
+  const generalTags = [
+  {id:0,name:"Anxiety",},{id:1,name:"Life patterns",},{id:2,name:"Love life"},{id:3,name:"Family relationships"},{id:4,name:"Life purpose"},
+  {id:5,name:"Depression"},{}
+]
 
   await db.Tag.bulkCreate(generalTags, {
     returning: true,

@@ -145,11 +145,11 @@ const Option = (props) => {
 };
 
 export const colourOptions = [
-  { value: 'anxiety', label: 'Anxiety' },
-  { value: 'life_patterns', label: 'Life patterns' },
-  { value: 'love_life', label: 'Love life' },
-  { value: 'family_relationships', label: 'Family relationships' },
-  { value: 'depression', label: 'Depression' },
+  { value: 'Anxiety', label: 'Anxiety' },
+  { value: 'Life patterns', label: 'Life patterns' },
+  { value: 'Love life', label: 'Love life' },
+  { value: 'Family relationships', label: 'Family relationships' },
+  { value: 'Depression', label: 'Depression' },
 ];
 
 const TagSet = (props) => {
@@ -350,6 +350,7 @@ function Home() {
 
   function handleChange(selected) {
     setOptionSelected(selected);
+    console.log(selected);
   }
 
   const searchThis = search;
@@ -385,31 +386,41 @@ function Home() {
           style={{ color: searchTag.includes('Anxiety') ? 'green' : 'black' }}
           onClick={() => fullSearchFunction('Anxiety')}
         >
-          Pregnancy
+          Anxiety
         </button>
         <button
-          style={{ color: searchTag.includes('Life patterns') ? 'green' : 'black' }}
+          style={{
+            color: searchTag.includes('Life patterns') ? 'green' : 'black',
+          }}
           onClick={() => fullSearchFunction('Life patterns')}
         >
-          Therapy
+          Life patterns
         </button>
         <button
-          style={{ color: searchTag.includes('Family relationships') ? 'green' : 'black' }}
+          style={{
+            color: searchTag.includes('Family relationships')
+              ? 'green'
+              : 'black',
+          }}
           onClick={() => fullSearchFunction('Family relationships')}
         >
-          Marital
+          Family relationships
         </button>
         <button
-          style={{ color: searchTag.includes('Life purpose') ? 'green' : 'black' }}
+          style={{
+            color: searchTag.includes('Life purpose') ? 'green' : 'black',
+          }}
           onClick={() => fullSearchFunction('Life purpose')}
         >
-          Addiction
+          Life purpose
         </button>
         <button
-          style={{ color: searchTag.includes('Depression') ? 'green' : 'black' }}
+          style={{
+            color: searchTag.includes('Depression') ? 'green' : 'black',
+          }}
           onClick={() => fullSearchFunction('Depression')}
         >
-          Anxiety
+          Depression
         </button>
         {/*filtering users (for tags and names)*/}
         {isSearching &&
@@ -521,7 +532,7 @@ function Home() {
             components={{
               Option,
             }}
-            onChange={handleChange}
+            onChange={() => fullSearchfunction(optionSelected)}
             allowSelectAll={true}
             value={optionSelected}
           />
@@ -529,15 +540,37 @@ function Home() {
         {/* <Container className={classes.container}> */}
         <Grid container spacing={3}>
           {/* MAPPING             */}
-          {filteredNames.slice(0, limit).map((healerName, i) => (
-            <Healer
-              healerName={healerName.firstName + ' ' + healerName.lastName}
-              healerDesc={healerName.description}
-              key={healerName + i}
-              userid={healerName.id}
-              healerImage={healerName.photo}
-            />
-          ))}
+          {filteredNames.slice(0, limit).map((healerName, i) => {
+            if (searchTag.includes(healerName.tags[0].name)) {
+              return (
+                <>
+                  <Healer
+                    healerName={
+                      healerName.firstName + ' ' + healerName.lastName
+                    }
+                    healerDesc={healerName.description}
+                    key={healerName + i}
+                    userid={healerName.id}
+                    healerImage={healerName.photo}
+                  />
+                </>
+              );
+            } else if (searchTag.length == 0) {
+              return (
+                <>
+                  <Healer
+                    healerName={
+                      healerName.firstName + ' ' + healerName.lastName
+                    }
+                    healerDesc={healerName.description}
+                    key={healerName + i}
+                    userid={healerName.id}
+                    healerImage={healerName.photo}
+                  />
+                </>
+              );
+            }
+          })}
           <Grid item xs={12}>
             <Grid container>
               <Grid item xs={3}></Grid>

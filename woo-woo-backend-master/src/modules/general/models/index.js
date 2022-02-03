@@ -40,7 +40,6 @@ if (config.use_env_variable) {
 
 // register user model
 const db = {};
-
 db.User = createUserModel(sequelize, DataTypes);
 db.HealerProfile = createHealerProfileModel(sequelize, DataTypes);
 db.Location = createLocationModel(sequelize, DataTypes);

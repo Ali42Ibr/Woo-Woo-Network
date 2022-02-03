@@ -1,6 +1,7 @@
 import publicHealerProfileHelper from './public-healer-profile-helper';
 import axios from 'axios';
 import vincenty from 'node-vincenty';
+import dotenv from 'dotenv';
 
 /**
  * Get a list of public healer profile
@@ -41,51 +42,54 @@ const getPublicHealerProfile = async (req, res, next) => {
 
 //test function, trying to recieve main user information (location) and return a list of healers based on proximity
 
-const getOtherHealerList = async (req, res, next) => {
-
+const getHealerLocationList = async (req, res, next) => {
 
   //initializing position stack api
+  dotenv.config();
 
   let params = {
-    access_key: 'af0ace1cd4322f5ccc0203a3ce2c3a11',
+    access_key: process.env.POSITIONSTACK,
     query: ''
   }
-  
-
-
-  try {
     // limit and start is for pagination purpose
-
     //regular healer list
     const { limit, start } = req.query;
     const healerList = await publicHealerProfileHelper.getHealerList(
       limit,
       start
     );
-
-    let locations = [];
-
-
     //our user location
     const myLoc = req.body.userLocation;
     params.query = myLoc;
 
-
     const getMyCoordinates = async (query) => {
+    const resp = 0;
      params.query = query;
-     const resp = await axios.get('http://api.positionstack.com/v1/forward', {params})
-     const myLat = (resp.data.data[0].latitude);
-     const myLong = (resp.data.data[0].longitude);
-
+      try{
+      resp = await axios.get('http://api.positionstack.com/v1/forward', {params})
+      } catch(e) {
+        console.log(e);
+      }
+     if (resp.status == 200){
+      const myLat = (resp.data.data[0].latitude);
+      const myLong = (resp.data.data[0].longitude);
       return [myLat,myLong];
-
+     } else {
+       console.log(resp);
+       return null;
+     }
     }
 
     const myLocationArray = (await getMyCoordinates(myLoc));
 
+    if (myLocationArray == null){
+      // if can't get location, don't return it
+      console.log(123);
+      console.log(healerList);
+      res.status(200).json(healerList);
+    } else {
     const myLat = myLocationArray[0];
     const myLong = myLocationArray[1];
-
     console.log("Final",myLat,myLong)
 
     let userAndDistance = [];
@@ -98,10 +102,6 @@ const getOtherHealerList = async (req, res, next) => {
 
       const healerLocationString = (healerProfile.location.address + " " + healerProfile.location.city+ " " +healerProfile.location.province+ " " + healerProfile.location.country+ " " +
       healerProfile.location.postalCode );
-
-      let lat = 0;
-      let long = 0;
-
 
       
       console.log((healerProfile.location.address));
@@ -151,18 +151,14 @@ const getOtherHealerList = async (req, res, next) => {
     console.log("My User: " + req.body.userId);
     console.log("My User Location: " + req.body.userLocation);
 
-
-
-
-
-
-  } catch (err) {
-    next(err);
   }
+
+
+
 };
 
 export default {
   getPublicHealerList,
   getPublicHealerProfile,
-  getOtherHealerList
+  getHealerLocationList
 };

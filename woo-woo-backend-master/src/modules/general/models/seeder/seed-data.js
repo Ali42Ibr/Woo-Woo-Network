@@ -276,6 +276,7 @@ let date_ob = new Date();
 let date = (date_ob.getDate());
 console.log('date');
 console.log(date);
+console.log(date+1);
 for (let i = 0; i < 10; i++) {
   healerScheduleList.push({
     healerProfileId: i+1,

@@ -215,18 +215,24 @@ export const createHealerBulk = async () => {
 
   // create appointment list from client
   const appointmentList = [];
-  for (let i = 0; i < 10; i++) {
+
+  let date_obj = new Date();
+  for (let i = 0; i < 6; i++) {
+    let date = ("0" + date_obj.getDate()).slice(-2);
+    let month = ("0" + (date_obj.getMonth() + 1)).slice(-2);
+    let year = date_obj.getFullYear();
     appointmentList.push({
       serviceId: serviceListRes[i].id,
       clientId: response[i].id,
       healerProfileId: serviceListRes[i].healerProfileId,
-      sessionTime: "2022-02-04 12:00:00.000 +00:00",
+      sessionTime: year + "-" + month + "-" + date+" 12:00:00.000 +00:00",
       sessionLength: serviceListRes[i].timeLength,
       price: serviceListRes[i].price,
       status: 'paid',
       cleanUpTime: serviceListRes[i].cleanUpTime,
       serviceName: serviceListRes[i].name,
     });
+    date_obj.setDate(date_obj.getDate()+1);
   }
 
   const appointmentRes = await db.Appointment.bulkCreate(appointmentList, {
@@ -269,20 +275,23 @@ export const seedDataForExistUser = async () => {
 };
 
 
-
 //change start and end times for testing, probably need to create a better seed structure
 const healerScheduleList = [];
-let date_ob = new Date();
-let date = (date_ob.getDate());
-console.log('date');
-console.log(date);
-console.log(date+1);
+
 for (let i = 0; i < 10; i++) {
-  healerScheduleList.push({
-    healerProfileId: i+1,
-    startTime: "2022-02-04 09:00:00.000 +00:00",
-    endTime: "2022-02-04 11:00:00.000 +00:00"
-  });
+  let date_ob = new Date();
+  for (let j = 0; j < 6;j++){
+    let date = ("0" + date_ob.getDate()).slice(-2);
+    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+    let year = date_ob.getFullYear();
+    healerScheduleList.push({
+      healerProfileId: i+1,
+      startTime: year + "-" + month + "-" + date+" 09:00:00.000 +00:00",
+      endTime: year + "-" + month + "-" + date+" 11:00:00.000 +00:00",
+    });
+    date_ob.setDate(date_ob.getDate()+1);
+  }
+  
 }
 
 const response = db.HealerSchedule.bulkCreate(healerScheduleList, {

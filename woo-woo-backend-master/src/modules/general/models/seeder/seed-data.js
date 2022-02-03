@@ -272,6 +272,10 @@ export const seedDataForExistUser = async () => {
 
 //change start and end times for testing, probably need to create a better seed structure
 const healerScheduleList = [];
+let date_ob = new Date();
+let date = (date_ob.getDate());
+console.log('date');
+console.log(date);
 for (let i = 0; i < 10; i++) {
   healerScheduleList.push({
     healerProfileId: i+1,

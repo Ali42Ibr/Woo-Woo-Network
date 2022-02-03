@@ -3,6 +3,10 @@ import db from '../index';
 
 // seed user with healer profile with location
 export const createHealerBulk = async () => {
+
+
+
+  
   // init healer list
   const healerList = [];
   for (let i = 0; i < 10; i++) {
@@ -216,7 +220,7 @@ export const createHealerBulk = async () => {
       serviceId: serviceListRes[i].id,
       clientId: response[i].id,
       healerProfileId: serviceListRes[i].healerProfileId,
-      sessionTime: "2022-01-26 12:00:00.000 +00:00",
+      sessionTime: "2022-02-04 12:00:00.000 +00:00",
       sessionLength: serviceListRes[i].timeLength,
       price: serviceListRes[i].price,
       status: 'paid',
@@ -271,8 +275,8 @@ const healerScheduleList = [];
 for (let i = 0; i < 10; i++) {
   healerScheduleList.push({
     healerProfileId: i+1,
-    startTime: "2022-01-26 09:00:00.000 +00:00",
-    endTime: "2022-01-26 11:00:00.000 +00:00"
+    startTime: "2022-02-04 09:00:00.000 +00:00",
+    endTime: "2022-02-04 11:00:00.000 +00:00"
   });
 }
 

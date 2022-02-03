@@ -4,7 +4,7 @@ import publicHealerProfileController from './public-healer-profile-controller';
 const healerRouter = express.Router({ mergeParams: true });
 
 healerRouter.get('/', publicHealerProfileController.getPublicHealerList);
-healerRouter.post('/healerSearch', publicHealerProfileController.getOtherHealerList);
+healerRouter.post('/healerSearch', publicHealerProfileController.getHealerLocationList);
 
 //publicHealerProfileController.getOtherHealerList
 healerRouter

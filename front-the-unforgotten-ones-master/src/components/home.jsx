@@ -305,12 +305,12 @@ function Home() {
             }),
           }
         );
-        const data = await response.json().then((res) => {
-          console.log(res);
-          setSearchLocationUser(res);
-        });
+        const data = await response.json();
+        console.log(data);
+        setSearchLocationUser(data);
         setIsLoading(true);
       } catch (Error) {
+        console.log('error');
         console.log(Error);
       }
     })();
@@ -523,20 +523,6 @@ function Home() {
             }
           }}
         />
-        <div style={{ width: '300px' }}>
-          <ReactSelect
-            options={colourOptions}
-            isMulti
-            closeMenuOnSelect={false}
-            hideSelectedOptions={false}
-            components={{
-              Option,
-            }}
-            onChange={() => fullSearchfunction(optionSelected)}
-            allowSelectAll={true}
-            value={optionSelected}
-          />
-        </div>
         {/* <Container className={classes.container}> */}
         <Grid container spacing={3}>
           {/* MAPPING             */}

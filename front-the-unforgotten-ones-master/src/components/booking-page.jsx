@@ -408,6 +408,7 @@ const NarrowContainer = (props) => {
       date: state.slotDate,
       serviceId: state.serviceId,
     };
+
     console.log(JSON.stringify(myDataObject));
     if (myDataObject.serviceId === null) {
       alert('Please select a service before booking.');

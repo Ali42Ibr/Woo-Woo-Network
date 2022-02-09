@@ -179,7 +179,7 @@ export const createHealerBulk = async () => {
   for(let i = 0; i < 3; i++){
     const tempList = healerProfileIdList.map((healerId) => {
       return {
-        name: faker.prod,
+        name: "something",
         description: faker.lorem.sentence(),
         price: faker.datatype.number({ min: 50, max: 100 }),
         healerProfileId: healerId,

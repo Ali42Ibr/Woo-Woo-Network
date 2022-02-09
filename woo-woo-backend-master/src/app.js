@@ -5,6 +5,7 @@ import logger from 'morgan';
 import compression from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
+const { exec } = require('child_process');
 import xss from 'xss-clean';
 import rateLimit from 'express-rate-limit';
 import { createHealerBulk, seedDataForExistUser } from './modules/general/models/seeder/seed-data';
@@ -77,6 +78,7 @@ app.use('/', indexRouter);
 app.use(handleErrors);
 
 // this is to seed some sample data
+
 
 createHealerBulk();
 //seedDataForExistUser();

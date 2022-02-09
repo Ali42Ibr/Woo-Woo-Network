@@ -73,7 +73,7 @@ const createAuthAccount = async ({
       throw new BadRequest('Invalid email');
     } else if (err.code == 'auth/weak-password') {
       throw new BadRequest('Password is not strong enough.');
-    } else {
+     } else {
       console.log(err);
       throw new BadRequest();
     }
@@ -147,6 +147,8 @@ const createUser = async (isHealer, userInfo) => {
         templateId: emailTemplateId.PAYOUT_FORM_TO_HEALER,
       });
     } else {
+      console.log("user info");
+      console.log(userInfo);
       await User.create(userInfo);
     }
   } catch (err) {

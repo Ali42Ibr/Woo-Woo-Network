@@ -422,7 +422,7 @@ function Home() {
         >
           Depression
         </button>
-        {/*filtering users (for tags and names)*/}
+        {/*filtering users (for tags and names)*/ console.log(filteredNames)}
         {isSearching &&
           filteredNames.map((val, key) => {
             console.log(val.tags[0].name);

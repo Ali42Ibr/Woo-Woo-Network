@@ -130,10 +130,9 @@ const TimeButton = (props) => {
   const [state, dispatch] = useGlobalState();
 
   const handleClick = () => {
-    //console.log('state: ', state);
+    console.log(props.time);
     state.timeSlot = props.time;
     state.slotDate = moment(props.date).format('YYYY-MM-DD');
-    //console.log('state after: ', state);
   };
 
   return (
@@ -194,8 +193,6 @@ const TimeSelector = (props) => {
   return (
     <Box className={classes.timeContainer}>
       {/* We are mapping the available time slots for a week period here. We will always have 7 time selectors. */}
-      {console.log('time slots')}
-      {console.log(availableTimeSlots)}
 
       {availableTimeSlots.map((day, i) => (
         <TimeSelector_Day
@@ -409,6 +406,8 @@ const NarrowContainer = (props) => {
       serviceId: state.serviceId,
     };
 
+    console.log('Time slot');
+    console.log(myDataObject.timeSlot);
     console.log(JSON.stringify(myDataObject));
     if (myDataObject.serviceId === null) {
       alert('Please select a service before booking.');
@@ -446,6 +445,8 @@ const NarrowContainer = (props) => {
   }
   return (
     <div className={classes.narrowContainer}>
+      {console.log(healerID)}
+      {console.log(123)}
       <HealerServices healerID={healerID} />
       <DefaultButton onClick={handleBook} fullWidth contents="Book Now" />
     </div>

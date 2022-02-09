@@ -33,7 +33,8 @@ const getToken = async (email, password) => {
   try {
     await promiseWrapper(auth().signInWithEmailAndPassword(email, password));
     let token = await auth().currentUser.getIdToken();
-
+    console.log(token);
+    console.log("token");
     return token;
   } catch (err) {
     //console.log(err);

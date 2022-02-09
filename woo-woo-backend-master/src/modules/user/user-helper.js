@@ -73,9 +73,7 @@ const createAuthAccount = async ({
       throw new BadRequest('Invalid email');
     } else if (err.code == 'auth/weak-password') {
       throw new BadRequest('Password is not strong enough.');
-    } else if (err.code == 'app/invalid-credential'){
-      //do nothing, this error happens for some reason when creating accounts..
-    } else {
+     } else {
       console.log(err);
       throw new BadRequest();
     }

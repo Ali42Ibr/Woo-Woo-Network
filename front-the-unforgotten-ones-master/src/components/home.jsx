@@ -481,6 +481,7 @@ function Home() {
             }
           }}
         />
+        {/*<>
         <p>Click a tag to add or remove it to search filter</p>
         <button onClick={() => clickSearch('Clear')}>Clear</button>
         <button
@@ -523,6 +524,7 @@ function Home() {
         >
           Depression
         </button>
+</>*/}
         <ReactSelect
           options={options}
           isMulti

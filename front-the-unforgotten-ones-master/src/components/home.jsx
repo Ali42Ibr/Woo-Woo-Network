@@ -211,12 +211,22 @@ function Home() {
     // this doohickey holds healer data. This is the object we plop the data into.
     healerName,
     healerDesc,
+    healerTags,
     userid,
     healerImage,
     healerBrand,
   }) {
     const limit = 60;
     var healerDescriptionToShow = healerDesc;
+    var healerTagsToShow = '';
+    for (var i = 0; i < healerTags.length; i++) {
+      healerTagsToShow += healerTags[i].name + ' ';
+    }
+    if (healerTags == null) {
+      healerTagsToShow = 'Tags: ';
+    } else if (healerTagsToShow.length > limit) {
+      healerTagsToShow = healerTagsToShow.join().substring(0, limit) + '...';
+    }
     if (healerDesc == null) {
       healerDescriptionToShow =
         'Check the profile for more information about this healer.';
@@ -253,6 +263,8 @@ function Home() {
               <Box textAlign="left" marginTop="8px">
                 <Typography variant="body2" color="textSecondary" component="p">
                   {healerDescriptionToShow}
+                  <br />
+                  {healerTagsToShow}
                 </Typography>
                 {/*<TagSet />*/}
               </Box>
@@ -346,7 +358,6 @@ function Home() {
 
   function handleChangeSubmit(selected) {
     setOptionSelected(selected);
-    console.log('selected');
     try {
       fullSearchFunction(selected[selected.length - 1].value);
     } catch (e) {
@@ -481,7 +492,6 @@ function Home() {
             }
           }}
         />
-        {/*<>
         <p>Click a tag to add or remove it to search filter</p>
         <button onClick={() => clickSearch('Clear')}>Clear</button>
         <button
@@ -524,7 +534,6 @@ function Home() {
         >
           Depression
         </button>
-</>*/}
         <ReactSelect
           options={options}
           isMulti
@@ -550,6 +559,7 @@ function Home() {
                       healerName.firstName + ' ' + healerName.lastName
                     }
                     healerDesc={healerName.description}
+                    healerTags={healerName.tags}
                     key={healerName + i}
                     userid={healerName.id}
                     healerImage={healerName.photo}
@@ -564,6 +574,7 @@ function Home() {
                       healerName.firstName + ' ' + healerName.lastName
                     }
                     healerDesc={healerName.description}
+                    healerTags={healerName.tags}
                     key={healerName + i}
                     userid={healerName.id}
                     healerImage={healerName.photo}

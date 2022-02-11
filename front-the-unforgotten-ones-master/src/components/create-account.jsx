@@ -25,7 +25,7 @@ const schema = yup.object({
   firstName: yup
     .string()
     .trim()
-    .min(4, 'Your name must be at least 4 characters!')
+    .min(3, 'Your name must be at least 3 characters!')
     .max(20, 'Your name cannot be more than 20 characters.')
     .matches(
       /^[a-zA-Z]+$/,
@@ -35,7 +35,7 @@ const schema = yup.object({
   lastName: yup
     .string()
     .trim()
-    .min(4, 'Your name must be at least 4 characters!')
+    .min(3, 'Your name must be at least 3 characters!')
     .max(20, 'Your name cannot be more than 20 characters.')
     .matches(
       /^[a-zA-Z]+$/,

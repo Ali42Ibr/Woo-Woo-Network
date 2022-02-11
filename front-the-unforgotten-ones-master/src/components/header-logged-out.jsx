@@ -22,8 +22,12 @@ import phoenixLogo from '../media/phoenixLogo.svg';
 
 const headersDataLoggedOut = [
   {
-    label: 'Healers',
+    label: 'Search',
     href: '/home#healers_section',
+  },
+  {
+    label: 'About us',
+    href: '/about-us',
   },
   {
     label: 'Sign Up',

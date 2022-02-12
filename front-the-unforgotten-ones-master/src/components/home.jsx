@@ -144,7 +144,7 @@ const Option = (props) => {
   );
 };
 
-export const colourOptions = [
+export const options = [
   { value: 'Anxiety', label: 'Anxiety' },
   { value: 'Life patterns', label: 'Life patterns' },
   { value: 'Love life', label: 'Love life' },
@@ -211,12 +211,22 @@ function Home() {
     // this doohickey holds healer data. This is the object we plop the data into.
     healerName,
     healerDesc,
+    healerTags,
     userid,
     healerImage,
     healerBrand,
   }) {
     const limit = 60;
     var healerDescriptionToShow = healerDesc;
+    var healerTagsToShow = '';
+    for (var i = 0; i < healerTags.length; i++) {
+      healerTagsToShow += healerTags[i].name + ' ';
+    }
+    if (healerTags == null) {
+      healerTagsToShow = 'Tags: ';
+    } else if (healerTagsToShow.length > limit) {
+      healerTagsToShow = healerTagsToShow.join().substring(0, limit) + '...';
+    }
     if (healerDesc == null) {
       healerDescriptionToShow =
         'Check the profile for more information about this healer.';
@@ -253,6 +263,8 @@ function Home() {
               <Box textAlign="left" marginTop="8px">
                 <Typography variant="body2" color="textSecondary" component="p">
                   {healerDescriptionToShow}
+                  <br />
+                  {healerTagsToShow}
                 </Typography>
                 {/*<TagSet />*/}
               </Box>
@@ -306,11 +318,9 @@ function Home() {
           }
         );
         const data = await response.json();
-        console.log(data);
         setSearchLocationUser(data);
         setIsLoading(true);
       } catch (Error) {
-        console.log('error');
         console.log(Error);
       }
     })();
@@ -332,8 +342,6 @@ function Home() {
       let newArray = searchTag;
       newArray.push(props);
       setSearchTag([...newArray]);
-    } else {
-      console.log('Weird else');
     }
   }
 
@@ -348,9 +356,13 @@ function Home() {
 
   let filteredNames = [];
 
-  function handleChange(selected) {
+  function handleChangeSubmit(selected) {
     setOptionSelected(selected);
-    console.log(selected);
+    try {
+      fullSearchFunction(selected[selected.length - 1].value);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   const searchThis = search;
@@ -380,52 +392,9 @@ function Home() {
           />
         }
         {/*These three buttons are for filtering, they change color when they are already chosen*/}
-        <p>Click a tag to add or remove it to search filter</p>
-        <button onClick={() => clickSearch('Clear')}>Clear</button>
-        <button
-          style={{ color: searchTag.includes('Anxiety') ? 'green' : 'black' }}
-          onClick={() => fullSearchFunction('Anxiety')}
-        >
-          Anxiety
-        </button>
-        <button
-          style={{
-            color: searchTag.includes('Life patterns') ? 'green' : 'black',
-          }}
-          onClick={() => fullSearchFunction('Life patterns')}
-        >
-          Life patterns
-        </button>
-        <button
-          style={{
-            color: searchTag.includes('Family relationships')
-              ? 'green'
-              : 'black',
-          }}
-          onClick={() => fullSearchFunction('Family relationships')}
-        >
-          Family relationships
-        </button>
-        <button
-          style={{
-            color: searchTag.includes('Life purpose') ? 'green' : 'black',
-          }}
-          onClick={() => fullSearchFunction('Life purpose')}
-        >
-          Life purpose
-        </button>
-        <button
-          style={{
-            color: searchTag.includes('Depression') ? 'green' : 'black',
-          }}
-          onClick={() => fullSearchFunction('Depression')}
-        >
-          Depression
-        </button>
         {/*filtering users (for tags and names)*/}
         {isSearching &&
           filteredNames.map((val, key) => {
-            console.log(val.tags[0].name);
             if (searchTag.includes(val.tags[0].name)) {
               return (
                 <div className="user" key={key}>
@@ -523,9 +492,64 @@ function Home() {
             }
           }}
         />
+        <p>Click a tag to add or remove it to search filter</p>
+        <button onClick={() => clickSearch('Clear')}>Clear</button>
+        <button
+          style={{ color: searchTag.includes('Anxiety') ? 'green' : 'black' }}
+          onClick={() => fullSearchFunction('Anxiety')}
+        >
+          Anxiety
+        </button>
+        <button
+          style={{
+            color: searchTag.includes('Life patterns') ? 'green' : 'black',
+          }}
+          onClick={() => fullSearchFunction('Life patterns')}
+        >
+          Life patterns
+        </button>
+        <button
+          style={{
+            color: searchTag.includes('Family relationships')
+              ? 'green'
+              : 'black',
+          }}
+          onClick={() => fullSearchFunction('Family relationships')}
+        >
+          Family relationships
+        </button>
+        <button
+          style={{
+            color: searchTag.includes('Life purpose') ? 'green' : 'black',
+          }}
+          onClick={() => fullSearchFunction('Life purpose')}
+        >
+          Life purpose
+        </button>
+        <button
+          style={{
+            color: searchTag.includes('Depression') ? 'green' : 'black',
+          }}
+          onClick={() => fullSearchFunction('Depression')}
+        >
+          Depression
+        </button>
+        <ReactSelect
+          options={options}
+          isMulti
+          closeMenuOnSelect={false}
+          hideSelectedOptions={false}
+          components={{
+            Option,
+          }}
+          onChange={handleChangeSubmit}
+          allowSelectAll={true}
+          value={optionSelected}
+        />
         {/* <Container className={classes.container}> */}
         <Grid container spacing={3}>
           {/* MAPPING             */}
+
           {filteredNames.slice(0, limit).map((healerName, i) => {
             if (searchTag.includes(healerName.tags[0].name)) {
               return (
@@ -535,6 +559,7 @@ function Home() {
                       healerName.firstName + ' ' + healerName.lastName
                     }
                     healerDesc={healerName.description}
+                    healerTags={healerName.tags}
                     key={healerName + i}
                     userid={healerName.id}
                     healerImage={healerName.photo}
@@ -549,6 +574,7 @@ function Home() {
                       healerName.firstName + ' ' + healerName.lastName
                     }
                     healerDesc={healerName.description}
+                    healerTags={healerName.tags}
                     key={healerName + i}
                     userid={healerName.id}
                     healerImage={healerName.photo}

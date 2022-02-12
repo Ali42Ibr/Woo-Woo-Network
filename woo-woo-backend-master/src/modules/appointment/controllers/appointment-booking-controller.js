@@ -343,7 +343,6 @@ const cancelAppointment = async (req, res, next) => {
       const duration = moment
         .duration(moment(sessionTime).diff(moment()))
         .asDays();
-      console.log(duration);
       if (
         duration < cancelFee.dataValues.appliedDay &&
         appointmentInfo.dataValues.healerRequest !== REQUEST_CANCEL

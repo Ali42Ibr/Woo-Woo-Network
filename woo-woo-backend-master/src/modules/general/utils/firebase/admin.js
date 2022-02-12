@@ -3,18 +3,11 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const cert = {
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-  clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-};
+var serviceAccount = require('C://Users//ali0//Documents//GitHub//Woo-Woo-Network//woo-woo-backend-master//serviceAccountKey.json');
 
-// init connection to firestore
-if (admin.apps.length === 0) {
-  admin.initializeApp({
-    credential: admin.credential.cert(cert),
-  });
-}
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
 
 export const adminAuth = admin.auth;
 export default admin;

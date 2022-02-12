@@ -1,0 +1,1 @@
+This week the team worked on their respective features. Ali is progressing on getting the payment system and other functionalities the previous team implemented in order. David and Ali are working on the admin paga. Daven is working on the google maps feature.  We also signed the capstone agreement provided by the University-Industry Liaison Office.

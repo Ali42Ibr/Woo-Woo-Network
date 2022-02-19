@@ -1,0 +1,1 @@
+This week the team is working on the tasks for peer testing session 2. Therefore we are all working on implementing the specific features that will be tested this upcoming milestone. 

@@ -1,6 +1,7 @@
-Working on fixing Stripe.
 
-Problem #1:BadRequest [Error]: You did not provide an API key. You need to provide your API key in the Authorization header, 
+
+Working on fixing Stripe.
+error: BadRequest [Error]: You did not provide an API key. You need to provide your API key in the Authorization header, 
 using Bearer auth (e.g. 'Authorization: Bearer YOUR_SECRET_KEY'). See https://stripe.com/docs/api#authentication for details, or we can help at https://support.stripe.com/.
 
 To fix: After some looking, I found the API key and fixed the .env file. But now I am getting a new error, "can't use publishable key'. Stripe wants me 
@@ -8,3 +9,7 @@ to use the secret key, but it is not accepting it. Looking at the logs, I can se
 
 I contacted support and tried some fixes online without any results.
 
+Also worked on fixing Positionstack, the geolocation API. It is returning a 502 error which is undocumented. I emailed positionstack and they replied saying
+there is an error they are working on. 
+
+Currently I cannot continue testing the website properly until Stripe is working, over the break I'll have to edit the code to be able to test without Stripe.

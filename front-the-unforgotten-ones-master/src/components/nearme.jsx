@@ -1,18 +1,4 @@
-/**  
- 
-//  updated message 
 
-Kimberlee Klein has worked on projects like developing pregnancy loss
-programs to help people with grief and an app that will help people give
-away their leftovers that would otherwise go bad. She came up with the 
-idea for Woo Woo Net after noticing a trend with the healers she&apos;s
-seen in her career. Many healers find it difficult to market their
-services and accept payments from their clients. The project aims to
-make it easier for both clients and healers to interact with one another. 
-
-
-
-*/
 import React, { useState } from 'react';
 import Copyright from './copyright.jsx';
 import AddIcon from '@material-ui/icons/Add';
@@ -101,31 +87,7 @@ const PageContent = (props) => {
         their services and accept payments from clients. The project aims to
         make it easier for both clients and healers to interact with each other.
       </Typography>
-      {/*<br></br>
-      <br></br>
-      <Typography variant="h5" className={classes.header}>
-        Sponsor
-      </Typography>
-      <Typography variant="body1" className={classes.text}>
-        Clients The client is, social entrepreneur, Kimberlee Klein. She&apos;s
-        worked on projects like developing pregnancy loss programs to help
-        people with grief and an app that will help people give away their
-        leftovers that would otherwise go bad. She proposed the project as a
-        capstone project after hearing about the program through a colleague.
-      </Typography>
-      <Typography variant="h5" className={classes.header}>
-        Project
-      </Typography>
-      <Typography variant="body1" className={classes.text}>
-        Kimberlee conceived this project after noticing a trend with the healers
-        she&apos;s interacted with in her career; that many healers find it
-        difficult to market their services and accept payments from their
-        clients. She was inspired by the Airbnb model of offering a service,
-        reducing the conversation of money, and money being transferred after
-        the service is complete. The project aims to make it easy for clients to
-        search for healers that fit their needs and the interaction between
-        client and healer as smooth as possible.
-      </Typography>*/}
+      
     </div>
   );
 };

@@ -1,8 +1,10 @@
-Usability tasks for Peer testing session 2: 
+
+Peer testing #2 (Milestone 3): 
+
+Usability tasks
 
 
-
-User : 
+User: 
 
 
 

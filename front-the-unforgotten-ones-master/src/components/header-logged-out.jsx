@@ -39,7 +39,7 @@ const headersDataLoggedOut = [
   },
   {
     label: 'Near Me',
-    href: '/nearme',
+    href: '/privacy-policy',
   },
 ];
 

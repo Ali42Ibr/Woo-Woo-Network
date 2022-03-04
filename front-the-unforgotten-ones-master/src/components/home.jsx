@@ -215,6 +215,7 @@ function Home() {
     userid,
     healerImage,
     healerBrand,
+    healerDistance,
   }) {
     const limit = 60;
     var healerDescriptionToShow = healerDesc;
@@ -264,7 +265,9 @@ function Home() {
                 <Typography variant="body2" color="textSecondary" component="p">
                   {healerDescriptionToShow}
                   <br />
-                  {healerTagsToShow}
+                  <p> Specalities: {healerTagsToShow}</p>
+                  <br />
+                  <p>{healerDistance} km away</p>
                 </Typography>
                 {/*<TagSet />*/}
               </Box>
@@ -393,6 +396,7 @@ function Home() {
         }
         {/*These three buttons are for filtering, they change color when they are already chosen*/}
         {/*filtering users (for tags and names)*/}
+        {/*
         {isSearching &&
           filteredNames.map((val, key) => {
             if (searchTag.includes(val.tags[0].name)) {
@@ -417,6 +421,7 @@ function Home() {
               );
             }
           })}
+        */}
         {isLoading ? <p></p> : <ReactBootStrap.Spinner animation="border" />}
         <Paper className={classes.flavorContents}>
           <Typography variant="h3" gutterBottom color="black">
@@ -534,18 +539,6 @@ function Home() {
         >
           Depression
         </button>
-        <ReactSelect
-          options={options}
-          isMulti
-          closeMenuOnSelect={false}
-          hideSelectedOptions={false}
-          components={{
-            Option,
-          }}
-          onChange={handleChangeSubmit}
-          allowSelectAll={true}
-          value={optionSelected}
-        />
         {/* <Container className={classes.container}> */}
         <Grid container spacing={3}>
           {/* MAPPING             */}
@@ -563,6 +556,7 @@ function Home() {
                     key={healerName + i}
                     userid={healerName.id}
                     healerImage={healerName.photo}
+                    healerDistance={healerName.distance}
                   />
                 </>
               );
@@ -578,6 +572,7 @@ function Home() {
                     key={healerName + i}
                     userid={healerName.id}
                     healerImage={healerName.photo}
+                    healerDistance={healerName.distance}
                   />
                 </>
               );

@@ -77,7 +77,15 @@ const SignUpForm = (props) => {
   const classes = useStyles();
 
   const {
-    values: { email, password, firstName, lastName, isHealer, passwordConfirm },
+    values: {
+      email,
+      password,
+      firstName,
+      lastName,
+      isHealer,
+      passwordConfirm,
+      location,
+    },
     errors,
     touched,
     handleChange,
@@ -172,6 +180,22 @@ const SignUpForm = (props) => {
             // onChange={(e) => setPassword(e.target.value)}
           />
         </Grid>
+        <Grid item xs={12} paddingtop="0">
+          <SmallTextField
+            label="Location"
+            type="location"
+            name="location"
+            id="location"
+            autoComplete="location"
+            required
+            fullWidth
+            value={location}
+            helperText={touched.location ? errors.location : ''}
+            error={touched.location && Boolean(errors.location)}
+            onChange={change.bind(null, 'location')}
+            // onChange={(e) => setPassword(e.target.value)}
+          />
+        </Grid>
         <Grid item xs={12} paddingleft="24px">
           <FormControlLabel
             control={
@@ -241,6 +265,7 @@ function SignUp() {
               password: '',
               firstName: '',
               lastName: '',
+              location: '',
               // description: "",
               // brand: "",
               //isHealer: false,

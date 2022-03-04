@@ -37,6 +37,10 @@ const headersDataLoggedIn = [
     label: 'Logout',
     href: '/logout',
   },
+  {
+    label: 'Near Me',
+    href: '/privacy-policy',
+  },
 ];
 
 // Styles to be changed - made navbar responsive for mobile use

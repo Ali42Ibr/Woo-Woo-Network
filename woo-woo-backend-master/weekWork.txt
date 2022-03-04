@@ -1,4 +1,4 @@
-
+Feb 16th
 
 Working on fixing Stripe.
 error: BadRequest [Error]: You did not provide an API key. You need to provide your API key in the Authorization header, 
@@ -13,3 +13,8 @@ Also worked on fixing Positionstack, the geolocation API. It is returning a 502 
 there is an error they are working on. 
 
 Currently I cannot continue testing the website fully until Stripe is working, over the break I'll have to edit the code to be able to test without Stripe.
+
+March 2nd
+
+Geolocation API is fixed.
+

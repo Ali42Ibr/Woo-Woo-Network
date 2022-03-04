@@ -284,9 +284,27 @@ const updateUserLocation = async ({ uid, location }) => {
   }
 };
 
+const createLocation = async ({ id, location }) => {
+  
+  const user = await User.findOne({
+    attributes: ['id'],
+    where: {
+      uid,
+    },
+  });
+  if (user === null) {
+    throw new NotFound();
+  }
+  const { id } = user.dataValues;
+  await db.Location.create({userId: id,
+  ...location,
+});
+}
+
 export default {
   getUser,
   createUser,
+  createLocation,
   updateUser,
   getHealerUser,
   updateHealerProfile,

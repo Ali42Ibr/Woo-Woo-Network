@@ -46,13 +46,39 @@ const getUser = async (req, res, next) => {
  */
 const createUser = async (req, res, next) => {
   try {
-    const { email, password, firstName, lastName, isHealer } = req.body;
+    const { email, password, firstName, lastName, isHealer, address, city, province, country, postalCode } = req.body;
     const uid = await userHelper.createAuthAccount({
       email,
       password,
       displayName: firstName,
       isHealer,
     });
+
+
+    if (address != null){
+    const healerLocation = response.map((user) => {
+      return {
+        address: address,
+        city: city,
+        province: province,
+        country: country,
+        postalCode: postalCode,
+        userId: uid,
+      }
+    });
+  }   
+  
+    /*const healerTags = response.map((user) => {
+      return {
+  
+      }
+    })*/
+  
+    response = await db.Location.bulkCreate(healerLocation, {
+      returning: true,
+    });
+
+
     // save user account without password to database
     console.log("Req.body");
     console.log(req.body);

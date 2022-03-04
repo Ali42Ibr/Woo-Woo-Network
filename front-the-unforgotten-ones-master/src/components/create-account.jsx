@@ -51,6 +51,11 @@ const schema = yup.object({
     .string()
     .oneOf([yup.ref('password'), null], 'Passwords must match')
     .required('Please confirm your password'),
+  address: yup.string().notRequired(),
+  city: yup.string().notRequired(),
+  country: yup.string().notRequired(),
+  postalCode: yup.string().notRequired(),
+  province: yup.string().notRequired(),
 });
 
 /** This is the theme for the items on this page - nav bar not included - STYLING here! */
@@ -77,7 +82,19 @@ const SignUpForm = (props) => {
   const classes = useStyles();
 
   const {
-    values: { email, password, firstName, lastName, isHealer, passwordConfirm },
+    values: {
+      email,
+      password,
+      firstName,
+      lastName,
+      isHealer,
+      passwordConfirm,
+      address,
+      city,
+      province,
+      country,
+      postalCode,
+    },
     errors,
     touched,
     handleChange,
@@ -172,6 +189,82 @@ const SignUpForm = (props) => {
             // onChange={(e) => setPassword(e.target.value)}
           />
         </Grid>
+        <PageTitle contents="Optional" />
+        <Grid item xs={12} paddingtop="0">
+          <SmallTextField
+            label="Address"
+            type="address"
+            name="address"
+            id="address"
+            autoComplete="address"
+            fullWidth
+            value={address}
+            helperText={touched.address ? errors.address : ''}
+            error={touched.address && Boolean(errors.address)}
+            onChange={change.bind(null, 'address')}
+            // onChange={(e) => setPassword(e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <SmallTextField
+            label="City"
+            type="city"
+            name="city"
+            id="city"
+            autoComplete="city"
+            fullWidth
+            value={city}
+            helperText={touched.city ? errors.city : ''}
+            error={touched.city && Boolean(errors.city)}
+            onChange={change.bind(null, 'city')}
+            // onChange={(e) => setPassword(e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <SmallTextField
+            label="Province"
+            type="province"
+            name="province"
+            id="province"
+            autoComplete="province"
+            fullWidth
+            value={province}
+            helperText={touched.province ? errors.province : ''}
+            error={touched.province && Boolean(errors.province)}
+            onChange={change.bind(null, 'province')}
+            // onChange={(e) => setPassword(e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <SmallTextField
+            label="Country"
+            type="country"
+            name="country"
+            id="country"
+            autoComplete="country"
+            fullWidth
+            value={country}
+            helperText={touched.country ? errors.country : ''}
+            error={touched.country && Boolean(errors.country)}
+            onChange={change.bind(null, 'country')}
+            // onChange={(e) => setPassword(e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <SmallTextField
+            label="Postal code"
+            type="postalCode"
+            name="postalCode"
+            id="postalCode"
+            autoComplete="postalCode"
+            fullWidth
+            value={postalCode}
+            helperText={touched.postalCode ? errors.postalCode : ''}
+            error={touched.postalCode && Boolean(errors.postalCode)}
+            onChange={change.bind(null, 'postalCode')}
+            // onChange={(e) => setPassword(e.target.value)}
+          />
+        </Grid>
         <Grid item xs={12} paddingleft="24px">
           <FormControlLabel
             control={
@@ -241,6 +334,10 @@ function SignUp() {
               password: '',
               firstName: '',
               lastName: '',
+              address: '',
+              postalCode: '',
+              country: '',
+              city: '',
               // description: "",
               // brand: "",
               //isHealer: false,

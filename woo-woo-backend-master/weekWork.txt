@@ -17,4 +17,5 @@ Currently I cannot continue testing the website fully until Stripe is working, o
 March 2nd
 
 Geolocation API is fixed.
+Location can now be added from signup as well as it being synced to users that sign up.
 

@@ -284,17 +284,18 @@ const updateUserLocation = async ({ uid, location }) => {
   }
 };
 
-const createLocation = async ({ id, location }) => {
+const createLocation = async (uid, location) => {
   
+  console.log(uid);
+  console.log("before find one")
   const user = await User.findOne({
     attributes: ['id'],
     where: {
       uid,
     },
   });
-  if (user === null) {
-    throw new NotFound();
-  }
+  console.log("after find one")
+
   const { id } = user.dataValues;
   await db.Location.create({userId: id,
   ...location,

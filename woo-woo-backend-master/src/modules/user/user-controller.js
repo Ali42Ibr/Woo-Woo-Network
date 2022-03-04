@@ -54,40 +54,26 @@ const createUser = async (req, res, next) => {
       isHealer,
     });
 
-
-    if (address != null){
-    const healerLocation = response.map((user) => {
-      return {
-        address: address,
-        city: city,
-        province: province,
-        country: country,
-        postalCode: postalCode,
-        userId: uid,
-      }
-    });
-  }   
-  
-    /*const healerTags = response.map((user) => {
-      return {
-  
-      }
-    })*/
-  
-    response = await db.Location.bulkCreate(healerLocation, {
-      returning: true,
-    });
-
-
     // save user account without password to database
     console.log("Req.body");
     console.log(req.body);
-    await userHelper.createUser(isHealer, {
+    var response = await userHelper.createUser(isHealer, {
       firstName,
       lastName,
       email,
       isHealer,
       uid,
+    });
+
+    console.log("resp");
+    console.log(response);
+    await userHelper.createLocation({
+      address,
+      city,
+      province,
+      country,
+      postalCode,
+      id,
     });
 
     res.status(201).send('User verification email has been sent');

@@ -107,6 +107,13 @@ const getHealerUser = async (uid) => {
   };
 };
 
+const createLocation = async (locationInfo) => {
+  const location = await Location.create(locationInfo, {
+    return: true,
+  })
+
+}
+
 /**
  * Create a new user (either healer or client)
  */
@@ -287,6 +294,7 @@ const updateUserLocation = async ({ uid, location }) => {
 export default {
   getUser,
   createUser,
+  createLocation,
   updateUser,
   getHealerUser,
   updateHealerProfile,

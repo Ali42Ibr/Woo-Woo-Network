@@ -66,14 +66,14 @@ const createUser = async (req, res, next) => {
     });
 
     console.log("resp");
-    console.log(response);
-    await userHelper.createLocation({
+    const id = await userHelper.getUser(uid).id;
+    console.log(id);
+    await userHelper.createLocation(uid,{
       address,
       city,
       province,
       country,
       postalCode,
-      id,
     });
 
     res.status(201).send('User verification email has been sent');

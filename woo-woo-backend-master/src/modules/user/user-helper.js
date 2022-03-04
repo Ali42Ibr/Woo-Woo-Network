@@ -284,6 +284,7 @@ const updateUserLocation = async ({ uid, location }) => {
   }
 };
 
+//creates location (exact same class as above..)
 const createLocation = async (uid, location) => {
   
   console.log(uid);

@@ -80,7 +80,7 @@ app.use(handleErrors);
 // this is to seed some sample data
 
 
-createHealerBulk();
+//createHealerBulk();
 //seedDataForExistUser();
 
 export default app;

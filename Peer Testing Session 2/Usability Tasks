@@ -1,0 +1,44 @@
+Peer testing #2 Woo Woo Network 
+
+Complete the following tasks 
+
+Introduction : 
+
+The Woo Woo Network is a platform focused on helping people via spiritual healing.
+Since spiritual healing “Energy Medicine” is a scarce service, the platform proposed by our project sponsor, Kimberlee Klein, aims to provide a place where healers can provide their services to clients who need them. The website will connect clients with a variety of options for spiritual healers who will aid them with their healing process.
+
+A user is a potential customer of the site. In the context of the project it would be someone that is looking for a spiritual healer. 
+
+Users can navigate the website, sign up, create an account, book appointments, look for healers nearby and more. 
+
+User : 
+
+User sign up 
+User log in 
+User uses tags to search for a healer (search takes a while to load, click the search field first and wait till options show up, then use tags to manipulate search)
+User browses and selects a healer (use navigation bar and select healers to browse)
+User selects a healer to view its information
+User tries to book an appointment at different times
+User tries different services 
+Access about us page 
+User uses access near me 
+User navigates map to find closest healer 
+
+Tags : buttons for different potential emotions the client might want to filter healers on 
+
+A healer is someone that is listing their service and is looking for clients through the website. 
+
+Healer :
+Sign up as healer
+
+
+Questions 
+
+What do you think of the “login experience”? 
+
+Any suggestions on the “Book appointment” functionality? 
+
+Do you have any suggestions on the “overall functionality of the system”? 
+
+
+

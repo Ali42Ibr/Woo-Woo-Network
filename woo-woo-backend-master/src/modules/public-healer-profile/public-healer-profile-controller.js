@@ -63,13 +63,14 @@ const getHealerLocationList = async (req, res, next) => {
     params.query = myLoc;
 
     const getMyCoordinates = async (query) => {
-    const resp = 0;
      params.query = query;
       try{
-      resp = await axios.get('http://api.positionstack.com/v1/forward', {params})
+      var resp = await axios.get('http://api.positionstack.com/v1/forward', {params})
       } catch(e) {
         console.log(e);
       }
+     console.log("hilol");
+     console.log(resp);
      if (resp.status == 200){
       const myLat = (resp.data.data[0].latitude);
       const myLong = (resp.data.data[0].longitude);

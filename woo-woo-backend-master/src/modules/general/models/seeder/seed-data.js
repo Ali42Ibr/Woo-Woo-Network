@@ -7,6 +7,7 @@ export const createHealerBulk = async () => {
 
 
   
+  /*
   // init healer list
   const healerList = [];
   for (let i = 0; i < 10; i++) {
@@ -48,7 +49,7 @@ export const createHealerBulk = async () => {
   const isAvailableOnline = true
 
   
-
+*/
 
 
 
@@ -101,6 +102,8 @@ export const createHealerBulk = async () => {
 
   //adding real user location for testing purposes
 
+  /*
+
   const fakeStreetAddress = ['380 Providence Ave 28','710 Tozer Crt','1490 Gordon Dr 301','3335 Richter St 203','2479 BC-97','1555 Banks Rd','120 Old Vernon Rd'
 ,'2120 Harvey Ave','1938 Kane Rd','155 Hollywood Rd N'];
   const fakeCity = 'Kelowna';
@@ -119,17 +122,21 @@ export const createHealerBulk = async () => {
     }
   });
 
+  */
+
 
 
   /*const healerTags = response.map((user) => {
     return {
 
     }
-  })*/
+  })
 
   response = await db.Location.bulkCreate(healerLocation, {
     returning: true,
   });
+
+  */
 
   const generalTags = [
   {id:0,name:"Anxiety",},{id:1,name:"Life patterns",},{id:2,name:"Love life"},{id:3,name:"Family relationships"},{id:4,name:"Life purpose"},
@@ -139,6 +146,8 @@ export const createHealerBulk = async () => {
   await db.Tag.bulkCreate(generalTags, {
     returning: true,
   });
+
+  /*
 
   const fakeIds = [0,1,3,4,5,1,2,3,4,5];
 
@@ -156,7 +165,7 @@ export const createHealerBulk = async () => {
   response = await db.HealerTag.bulkCreate(healerTags, {
     returning: true,
   });
-
+*/
   //original function for fake data
   /*const healerLocation = response.map((user) => {
     return {
@@ -174,6 +183,9 @@ export const createHealerBulk = async () => {
   // the 'response' variable used here was null, im not sure what they were trying to do
   const healerProfileIdList = [1,2,3,4];
 
+}
+
+  /*
   let serviceList = [];
   // create healer service
   for(let i = 0; i < 3; i++){
@@ -299,7 +311,6 @@ const response = db.HealerSchedule.bulkCreate(healerScheduleList, {
 });
 
 
-/**
 healerProfileId: {
   type: Sequelize.INTEGER,
   reference: {

@@ -15,6 +15,8 @@ const getPublicHealerList = async (req, res, next) => {
       limit,
       start
     );
+    console.log("hey!");
+    console.log(healerList);
     res.status(200).json(healerList);
   } catch (err) {
     next(err);

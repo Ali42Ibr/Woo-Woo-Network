@@ -298,6 +298,7 @@ function Home() {
         if (!response.ok)
           throw Error(response.status + ': ' + response.statusText); // error checking, is the data okay?
         const data = await response.json(); // transform the data from string into JSON format.
+        console.log(data);
         setHealers(() => data);
       } catch (Error) {
         console.log(Error);

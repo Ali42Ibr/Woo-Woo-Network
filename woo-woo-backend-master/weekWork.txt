@@ -19,3 +19,7 @@ March 2nd
 Geolocation API is fixed.
 Location can now *optionally* be added from signup as well as it being synced to users that sign up.
 
+
+March 9th.
+
+Stripe is working fine, but is taking some time to switch to "testing" mode, so that I am able to start the final testing.

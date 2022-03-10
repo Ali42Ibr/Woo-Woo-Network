@@ -5,6 +5,7 @@ import {
   Forbidden,
   BadRequest,
 } from '../general/middlewares/error-handle-middleware/error-code';
+import faker from 'faker';
 import { auth } from '../general/utils/firebase/firebase';
 import admin from '../general/utils/firebase/admin';
 import { promiseWrapper } from './error-handler';
@@ -130,7 +131,7 @@ const createUser = async (isHealer, userInfo) => {
       );
       await HealerProfile.create({
         accountId: user.dataValues.id,
-        paymentAccountId,
+        paymentAccountId: faker.datatype.string(),
       });
       console.log(paymentAccountLink.url);
       // send email to healer

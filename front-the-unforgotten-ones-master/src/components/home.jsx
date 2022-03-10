@@ -290,7 +290,7 @@ function Home() {
 
   React.useEffect(() => {
     // Fetches the array of healers to show on screen.
-    (async () => {
+    /*(async () => {
       try {
         const response = await fetch(
           process.env.REACT_APP_API_DOMAIN + '/healers'
@@ -304,6 +304,7 @@ function Home() {
         console.log(Error);
       }
     })();
+    */
 
     //posts to backend with user info, gets back a healer list based on location
     (async () => {
@@ -322,6 +323,8 @@ function Home() {
           }
         );
         const data = await response.json();
+        console.log(data);
+        console.log('here');
         setSearchLocationUser(data);
         setIsLoading(true);
       } catch (Error) {

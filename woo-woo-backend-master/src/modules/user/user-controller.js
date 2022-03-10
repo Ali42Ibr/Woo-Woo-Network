@@ -57,6 +57,7 @@ const createUser = async (req, res, next) => {
     // save user account without password to database
     console.log("Req.body");
     console.log(req.body);
+    try {
     await userHelper.createUser(isHealer, {
       firstName,
       lastName,
@@ -64,6 +65,9 @@ const createUser = async (req, res, next) => {
       isHealer,
       uid,
     });
+  } catch(e){
+    console.log(e);
+  }
 
     // if user supplies location, add it to the DB immediatly
     if (address != ''){

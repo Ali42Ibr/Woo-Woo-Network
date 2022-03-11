@@ -15,6 +15,8 @@ const getPublicHealerList = async (req, res, next) => {
       limit,
       start
     );
+    console.log("hey!");
+    console.log(healerList);
     res.status(200).json(healerList);
   } catch (err) {
     next(err);
@@ -95,7 +97,13 @@ const getHealerLocationList = async (req, res, next) => {
 
     let userAndDistance = [];
 
-    for (let i = 1; i < 11; i++){
+    console.log('healerList');
+    console.log(healerList);
+
+    var numUsers = healerList.length;
+
+    
+    for (let i = 1; i < numUsers+1; i++){
 
       const healerProfile = await publicHealerProfileHelper.getHealerProfile(i);
 
@@ -129,12 +137,15 @@ const getHealerLocationList = async (req, res, next) => {
 
     let newHealerList = [];
 
+    try{
     console.log(otherUsers[1].id)
     console.log(healerList[1].id)
-
+    } catch (e){
+      otherUsers = userAndDistance;
+    }
     
-    for (let i = 0; i < 10; i++){
-      for (let j = 0; j < 10; j++){
+    for (let i = 0; i < numUsers; i++){
+      for (let j = 0; j < numUsers; j++){
       if (otherUsers[i].id == healerList[j].id){
         healerList[j].distance = (otherUsers[i].distance/1000).toFixed(2);
         newHealerList.push(healerList[j]);
@@ -151,7 +162,7 @@ const getHealerLocationList = async (req, res, next) => {
     res.status(200).json(newHealerList);
     console.log("My User: " + req.body.userId);
     console.log("My User Location: " + req.body.userLocation);
-
+    
   }
 
 

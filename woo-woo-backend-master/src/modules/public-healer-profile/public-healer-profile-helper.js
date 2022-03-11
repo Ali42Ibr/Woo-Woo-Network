@@ -54,6 +54,14 @@ const getHealerList = async (limit, start) => {
       ...accountData,
     };
   });
+
+  console.log("hI!!");
+  for (var i = 0; i < healerList.length; i++){
+    if (healerList[i].tags.length < 1){
+    healerList[i].tags[0] = '';
+    }
+  }
+  console.log(healerList);
   return healerList;
 };
 

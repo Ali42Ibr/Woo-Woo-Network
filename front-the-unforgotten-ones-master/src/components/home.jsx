@@ -290,7 +290,7 @@ function Home() {
 
   React.useEffect(() => {
     // Fetches the array of healers to show on screen.
-    (async () => {
+    /*(async () => {
       try {
         const response = await fetch(
           process.env.REACT_APP_API_DOMAIN + '/healers'
@@ -298,11 +298,13 @@ function Home() {
         if (!response.ok)
           throw Error(response.status + ': ' + response.statusText); // error checking, is the data okay?
         const data = await response.json(); // transform the data from string into JSON format.
+        console.log(data);
         setHealers(() => data);
       } catch (Error) {
         console.log(Error);
       }
     })();
+    */
 
     //posts to backend with user info, gets back a healer list based on location
     (async () => {
@@ -321,6 +323,8 @@ function Home() {
           }
         );
         const data = await response.json();
+        console.log(data);
+        console.log('here');
         setSearchLocationUser(data);
         setIsLoading(true);
       } catch (Error) {

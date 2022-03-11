@@ -1,0 +1,15 @@
+
+Mohamad's been working on finishing up the peer testing report and peer evaluations.
+
+Worked on extracting the issues from the sessions and ranking them based on priority.
+
+Tried fixing one of the bugs but new error came up:
+  healers are not displaying as usual, error seems to be due to new code added to home.jsx
+  has to do with an async() clause. 
+
+Once error is fixed, will probably give 'learn more' a new function or remove.
+
+Make sure that clicking a healer name or card takes you to the profile/services page
+rather than doing nothing and confusing user.
+
+Priority is to make click direct properly, learn more function has less importance.

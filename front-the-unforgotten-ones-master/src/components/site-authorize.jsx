@@ -35,8 +35,6 @@ import PrivacyPolicy from './privacy-policy';
 const AuthSite = ({ logout, user }) => {
   const [userName, setUserName] = React.useState(String);
   const decodedToken = jwt_decode(user);
-  console.log('hi');
-  console.log(decodedToken);
 
   React.useEffect(() => {
     (async () => {

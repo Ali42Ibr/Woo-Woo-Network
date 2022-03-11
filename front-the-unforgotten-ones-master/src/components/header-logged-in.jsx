@@ -15,7 +15,7 @@ import React, { useState, useEffect } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 //import './app/app.css';
 //import logo
-import phoenixLogo from '../media/10.jpg';
+import phoenixLogo from '../media/phoenixLogo.svg';
 
 // if user is logged in, the nav bar icons will display as : Home, Healers, Account, Logout
 // is user is NOT logged in: Home, Sign Up, Login, Healers,
@@ -36,10 +36,6 @@ const headersDataLoggedIn = [
   {
     label: 'Logout',
     href: '/logout',
-  },
-  {
-    label: 'Near Me',
-    href: '/privacy-policy',
   },
 ];
 

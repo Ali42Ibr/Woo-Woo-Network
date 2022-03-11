@@ -30,13 +30,3 @@ adminRouter
   );
 
 export default adminRouter;
-
-// Admin router issues 
-// Router creating exceptions once added
-// .env file? 
-// dependencies missing?
-// Router will stay off the main app.js file till resolved, 
-// incorporating it now stalls the website.
-
-
-

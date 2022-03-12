@@ -275,6 +275,15 @@ function Home() {
           </CardActionArea>
           <CardActions>
             <SmallClearButton
+              /*
+              Learn more button function to be changed.
+              Learn more currently redirects to healers page, 
+              Button either to be removed fully,
+              given a different function,
+              or redirects to the same page.
+              Priority is to have the click on the healer
+              directing the user to their page.
+              */
               href={'/healers/' + userid}
               contents="Learn More"
             />

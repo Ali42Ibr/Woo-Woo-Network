@@ -23,3 +23,10 @@ Location can now *optionally* be added from signup as well as it being synced to
 March 9th.
 
 Stripe is working fine, but is taking some time to switch to "testing" mode, so that I am able to start the final testing.
+
+
+March 15th.
+
+Accounts are able to create services & schedules. But the schedule is not being saved in the database, although it is properly sent to the back end.
+Need to review HealerSchedule schema.
+ 

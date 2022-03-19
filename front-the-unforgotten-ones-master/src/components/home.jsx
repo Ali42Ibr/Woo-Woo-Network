@@ -555,7 +555,6 @@ function Home() {
         {/* <Container className={classes.container}> */}
         <Grid container spacing={3}>
           {/* MAPPING             */}
-
           {filteredNames.slice(0, limit).map((healerName, i) => {
             if (searchTag.includes(healerName.tags[0].name)) {
               return (

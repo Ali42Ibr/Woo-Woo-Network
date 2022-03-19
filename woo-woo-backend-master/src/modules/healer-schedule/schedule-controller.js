@@ -63,6 +63,7 @@ const createOrUpdateSchedule = async (req, res, next) => {
 
       // save schedule periods
       for (let period of periods) {
+        console.log(period);
         const { startTime, endTime } = period;
         const generatedStartTime = moment.tz(`${date} ${startTime}`, timezone);
         const generatedEndTime = moment.tz(`${date} ${endTime}`, timezone);
@@ -76,6 +77,7 @@ const createOrUpdateSchedule = async (req, res, next) => {
     }
     const result = await db.HealerSchedule.findAll();
     console.log(result);
+    console.log("ha");
     res.status(200).json('Schedule has been saved.');
   } catch (err) {
     next(new BadRequest(err.message));

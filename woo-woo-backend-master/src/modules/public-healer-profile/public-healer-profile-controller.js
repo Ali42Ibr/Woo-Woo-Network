@@ -1,3 +1,4 @@
+import jwtHelper from '../general/utils/jwt-helper';
 import publicHealerProfileHelper from './public-healer-profile-helper';
 import axios from 'axios';
 import vincenty from 'node-vincenty';
@@ -15,7 +16,6 @@ const getPublicHealerList = async (req, res, next) => {
       limit,
       start
     );
-    console.log("hey!");
     console.log(healerList);
     res.status(200).json(healerList);
   } catch (err) {
@@ -48,7 +48,7 @@ const getHealerLocationList = async (req, res, next) => {
 
   //initializing position stack api
   dotenv.config();
-
+  console.log("HAHHAHA");
   let params = {
     access_key: process.env.POSITIONSTACK,
     query: ''
@@ -60,11 +60,20 @@ const getHealerLocationList = async (req, res, next) => {
       limit,
       start
     );
-    //our user location
-    const myLoc = req.body.userLocation;
-    params.query = myLoc;
 
-    const userId = req.body.userId;
+    let userId = 100;
+    //our user location
+    try {
+      //const uid = req.params.uid;
+      const { healer, user_id: uid } = jwtHelper.getJWTInfo(
+        req.headers['authorization']
+      );
+      userId = uid;
+    } catch (err) {
+      next(err);
+    }
+    console.log(userId);
+    console.log("xwww");
 
     const myHealer = await publicHealerProfileHelper.getHealerProfile(userId);
 

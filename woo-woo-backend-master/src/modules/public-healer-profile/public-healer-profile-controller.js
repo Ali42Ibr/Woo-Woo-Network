@@ -3,7 +3,7 @@ import publicHealerProfileHelper from './public-healer-profile-helper';
 import axios from 'axios';
 import vincenty from 'node-vincenty';
 import dotenv from 'dotenv';
-
+import userHelper from '../user/user-helper';
 /**
  * Get a list of public healer profile
  * @note need to add pagination later on
@@ -61,6 +61,7 @@ const getHealerLocationList = async (req, res, next) => {
       start
     );
 
+    let myLocationArray = null;
     let userId = 100;
     //our user location
     try {
@@ -68,17 +69,23 @@ const getHealerLocationList = async (req, res, next) => {
       const { healer, user_id: uid } = jwtHelper.getJWTInfo(
         req.headers['authorization']
       );
-      userId = uid;
+      userId = healer[0].id;
+      const user = await userHelper.getUser(uid);
+      console.log(healer);
+      console.log(myHealer);
+      console.log(user);
+      console.log('xwww');
+      const myLocation = (myHealer.location.address + " " + myHealer.location.city+ " " +myHealer.location.province+ " " + myHealer.location.country+ " " +
+      myHealer.location.postalCode );
+      console.log(myLocation);
+      myLocationArray = (await getMyCoordinates(myLocation));
+      console.log(myLocation);
+
     } catch (err) {
       next(err);
     }
-    console.log(userId);
-    console.log("xwww");
 
-    const myHealer = await publicHealerProfileHelper.getHealerProfile(userId);
 
-    const myLocation = (myHealer.location.address + " " + myHealer.location.city+ " " +myHealer.location.province+ " " + myHealer.location.country+ " " +
-    myHealer.location.postalCode );
 
     const getMyCoordinates = async (query) => {
      params.query = query;
@@ -99,7 +106,6 @@ const getHealerLocationList = async (req, res, next) => {
      }
     }
 
-    const myLocationArray = (await getMyCoordinates(myLocation));
 
     if (myLocationArray == null){
       // if can't get location, don't return it

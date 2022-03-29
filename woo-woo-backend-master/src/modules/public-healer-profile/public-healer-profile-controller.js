@@ -1,9 +1,10 @@
 import jwtHelper from '../general/utils/jwt-helper';
+import userHelper from '../user/user-helper';
 import publicHealerProfileHelper from './public-healer-profile-helper';
 import axios from 'axios';
 import vincenty from 'node-vincenty';
 import dotenv from 'dotenv';
-import userHelper from '../user/user-helper';
+
 /**
  * Get a list of public healer profile
  * @note need to add pagination later on
@@ -16,6 +17,7 @@ const getPublicHealerList = async (req, res, next) => {
       limit,
       start
     );
+    console.log("hey!");
     console.log(healerList);
     res.status(200).json(healerList);
   } catch (err) {
@@ -48,7 +50,7 @@ const getHealerLocationList = async (req, res, next) => {
 
   //initializing position stack api
   dotenv.config();
-  console.log("HAHHAHA");
+
   let params = {
     access_key: process.env.POSITIONSTACK,
     query: ''
@@ -60,32 +62,43 @@ const getHealerLocationList = async (req, res, next) => {
       limit,
       start
     );
-
-    let myLocationArray = null;
-    let userId = 100;
     //our user location
+
+    let myLoc = null;
+
     try {
       //const uid = req.params.uid;
       const { healer, user_id: uid } = jwtHelper.getJWTInfo(
         req.headers['authorization']
       );
-      userId = healer[0].id;
-      const user = await userHelper.getUser(uid);
       console.log(healer);
-      console.log(myHealer);
-      console.log(user);
-      console.log('xwww');
-      const myLocation = (myHealer.location.address + " " + myHealer.location.city+ " " +myHealer.location.province+ " " + myHealer.location.country+ " " +
-      myHealer.location.postalCode );
-      console.log(myLocation);
-      myLocationArray = (await getMyCoordinates(myLocation));
-      console.log(myLocation);
-
+      console.log('startXD');
+      if (healer) {
+        // if user is healer
+        const healerProfile = await userHelper.getHealerUser(uid);
+        console.log(healerProfile);
+        console.log("healerHHAHA");
+        const healerLocationString = (healerProfile.location.address + " " + healerProfile.location.city+ " " +healerProfile.location.province+ " " + healerProfile.location.country+ " " +
+        healerProfile.location.postalCode );
+        myLoc = healerLocationString;
+      } else {
+        const user = await userHelper.getUser(uid);
+        user.photo = user.photo
+          ? process.env.PHOTO_STORAGE_DOMAIN + user.photo
+          : '';
+        console.log(user);
+        console.log('userHAHA');
+        const healerLocationString = (user.location.address + " " + user.location.city+ " " +user.location.province+ " " + user.location.country+ " " +
+        user.location.postalCode );
+        myLoc = healerLocationString;
+      }
     } catch (err) {
+      console.log(err);
       next(err);
     }
 
 
+    params.query = myLoc;
 
     const getMyCoordinates = async (query) => {
      params.query = query;
@@ -106,6 +119,7 @@ const getHealerLocationList = async (req, res, next) => {
      }
     }
 
+    const myLocationArray = (await getMyCoordinates(myLoc));
 
     if (myLocationArray == null){
       // if can't get location, don't return it

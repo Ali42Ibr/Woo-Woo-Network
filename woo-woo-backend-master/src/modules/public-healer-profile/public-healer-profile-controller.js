@@ -64,6 +64,13 @@ const getHealerLocationList = async (req, res, next) => {
     const myLoc = req.body.userLocation;
     params.query = myLoc;
 
+    const userId = req.body.userId;
+
+    const myHealer = await publicHealerProfileHelper.getHealerProfile(userId);
+
+    const myLocation = (myHealer.location.address + " " + myHealer.location.city+ " " +myHealer.location.province+ " " + myHealer.location.country+ " " +
+    myHealer.location.postalCode );
+
     const getMyCoordinates = async (query) => {
      params.query = query;
       try{
@@ -83,7 +90,7 @@ const getHealerLocationList = async (req, res, next) => {
      }
     }
 
-    const myLocationArray = (await getMyCoordinates(myLoc));
+    const myLocationArray = (await getMyCoordinates(myLocation));
 
     if (myLocationArray == null){
       // if can't get location, don't return it

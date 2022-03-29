@@ -256,7 +256,6 @@ const Day_TimePeriod = (props) => {
     const list = [...inputList];
     list[index][name] = value;
     setInputList(list);
-
     const newSchedule = state.schedules.slice(); //copy the array
     const dayPeriods = newSchedule[props.weekDay].periods.slice(); //copy the periods array of a day
     //check for index of period before pushing
@@ -492,6 +491,7 @@ const SaveDelete = (props) => {
   function handleSave(e) {
     e.preventDefault();
     (async () => {
+      console.log(data);
       try {
         const response = await fetch(
           process.env.REACT_APP_API_DOMAIN + '/schedules/',

@@ -24,6 +24,8 @@ const isAuthenticatedUser = async (req, res, next) => {
     await adminAuth().verifyIdToken(token);
     // check if email is verify
     const { email_verified } = jwtHelper.getJWTInfo(token);
+    console.log(email_verified);
+    console.log("here!");
     if (!email_verified) {
       throw new Unauthorized('Email is not verified'); // will uncomment later on
     }
@@ -42,6 +44,7 @@ const isAuthenticatedHealer = async (req, res, next) => {
     const token = getAuthToken(req);
     await adminAuth().verifyIdToken(token);
     const { healer } = jwtHelper.getJWTInfo(req.headers.authorization);
+    console.log(healer);
     if (!healer) {
       throw new Unauthorized('Only healer can request this endpoint');
     }

@@ -104,6 +104,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   healersButton: {
+    //Color might be changed to stand out from original page
+    //Components to look at include:
+    //background color,
+    //healer card color,
+    //healer button, etc.
     backgroundColor: '#cefa3e',
     color: '#343434',
     '&:hover': {

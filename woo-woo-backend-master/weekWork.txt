@@ -29,4 +29,4 @@ March 15th.
 
 Accounts are able to create services & schedules. But the schedule is not being saved in the database, although it is properly sent to the back end.
 Need to review HealerSchedule schema.
- 
+Stripe code is fixed, and is working in test mode.

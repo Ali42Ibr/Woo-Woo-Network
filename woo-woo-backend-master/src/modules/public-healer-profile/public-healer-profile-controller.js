@@ -1,3 +1,5 @@
+import jwtHelper from '../general/utils/jwt-helper';
+import userHelper from '../user/user-helper';
 import publicHealerProfileHelper from './public-healer-profile-helper';
 import axios from 'axios';
 import vincenty from 'node-vincenty';
@@ -61,7 +63,41 @@ const getHealerLocationList = async (req, res, next) => {
       start
     );
     //our user location
-    const myLoc = req.body.userLocation;
+
+    let myLoc = null;
+
+    try {
+      //const uid = req.params.uid;
+      const { healer, user_id: uid } = jwtHelper.getJWTInfo(
+        req.headers['authorization']
+      );
+      console.log(healer);
+      console.log('startXD');
+      if (healer) {
+        // if user is healer
+        const healerProfile = await userHelper.getHealerUser(uid);
+        console.log(healerProfile);
+        console.log("healerHHAHA");
+        const healerLocationString = (healerProfile.location.address + " " + healerProfile.location.city+ " " +healerProfile.location.province+ " " + healerProfile.location.country+ " " +
+        healerProfile.location.postalCode );
+        myLoc = healerLocationString;
+      } else {
+        const user = await userHelper.getUser(uid);
+        user.photo = user.photo
+          ? process.env.PHOTO_STORAGE_DOMAIN + user.photo
+          : '';
+        console.log(user);
+        console.log('userHAHA');
+        const healerLocationString = (user.location.address + " " + user.location.city+ " " +user.location.province+ " " + user.location.country+ " " +
+        user.location.postalCode );
+        myLoc = healerLocationString;
+      }
+    } catch (err) {
+      console.log(err);
+      next(err);
+    }
+
+
     params.query = myLoc;
 
     const getMyCoordinates = async (query) => {

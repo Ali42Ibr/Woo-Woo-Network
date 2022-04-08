@@ -30,3 +30,8 @@ March 15th.
 Accounts are able to create services & schedules. But the schedule is not being saved in the database, although it is properly sent to the back end.
 Need to review HealerSchedule schema.
 Stripe code is fixed, and is working in test mode.
+
+March 29th.
+
+Need to figure out how cookies are handled on system in order to implement location searching without posting user id every time which is noisy.
+

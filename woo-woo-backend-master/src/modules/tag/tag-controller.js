@@ -2,7 +2,7 @@ import db from '../general/models';
 
 const getTagList = async (req, res, next) => {
   try {
-    const result = await db.Tag.findAll({
+    const result = await db.HealerTag.findAll({
       attributes: ['id', 'name'],
     });
     res.status(200).json(result);

@@ -198,6 +198,7 @@ const updateHealerProfile = async (req, res, next) => {
     const { user_id: uid } = jwtHelper.getJWTInfo(token);
     // extract some fields from request body
     const { brandName, description, location, tags } = req.body;
+    console.log(tags);
     // update brandName and description
     await userHelper.updateHealerProfile({
       uid,
@@ -207,6 +208,7 @@ const updateHealerProfile = async (req, res, next) => {
       },
       tags,
     });
+
 
     // update location if user want to update
     if (location) {

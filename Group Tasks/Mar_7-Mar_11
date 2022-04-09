@@ -13,3 +13,6 @@ Make sure that clicking a healer name or card takes you to the profile/services 
 rather than doing nothing and confusing user.
 
 Priority is to make click direct properly, learn more function has less importance.
+
+Daven - solved github issue with TA finally updated local repo. worked on peer testing,
+peer testing reports and peer evaluations.

@@ -137,7 +137,7 @@ export const createHealerBulk = async () => {
   });
 
   */
-
+/*
   const generalTags = [
   {id:0,name:"Anxiety",},{id:1,name:"Life patterns",},{id:2,name:"Love life"},{id:3,name:"Family relationships"},{id:4,name:"Life purpose"},
   {id:5,name:"Depression"},
@@ -146,8 +146,7 @@ export const createHealerBulk = async () => {
   await db.Tag.bulkCreate(generalTags, {
     returning: true,
   });
-
-  /*
+*/
 
   const fakeIds = [0,1,3,4,5,1,2,3,4,5];
 
@@ -162,10 +161,11 @@ export const createHealerBulk = async () => {
 
   console.log(healerTags);
 
-  response = await db.HealerTag.bulkCreate(healerTags, {
+  const response = await db.HealerTag.bulkCreate(healerTags, {
     returning: true,
   });
-*/
+
+
   //original function for fake data
   /*const healerLocation = response.map((user) => {
     return {

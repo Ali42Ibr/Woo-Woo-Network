@@ -46,4 +46,5 @@ userRouter
   .route('/paymentAccountForm')
   .get(authMiddleware.isAuthenticatedUser, userController.getHealerPaymentForm);
 
+
 export default userRouter;

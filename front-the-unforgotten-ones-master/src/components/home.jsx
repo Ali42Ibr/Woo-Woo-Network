@@ -104,6 +104,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   healersButton: {
+    //Color might be changed to stand out from original page
+    //Components to look at include:
+    //background color,
+    //healer card color,
+    //healer button, etc.
     backgroundColor: '#cefa3e',
     color: '#343434',
     '&:hover': {
@@ -195,6 +200,8 @@ function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [optionSelected, setOptionSelected] = useState(null);
   var [user, setUser] = useState(sessionStorage.getItem('token'));
+
+  const aToken = sessionStorage.getItem('token');
 
   const LIMIT_MOBILE = 4;
   const LIMIT_WEB = 8;
@@ -321,14 +328,11 @@ function Home() {
         const response = await fetch(
           process.env.REACT_APP_API_DOMAIN + '/healers/healerSearch',
           {
-            method: 'POST',
+            method: 'GET',
             headers: {
+              Authorization: 'Bearer ' + aToken,
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-              userId: 1,
-              userLocation: '3075 Vint Road Kelowna',
-            }),
           }
         );
         const data = await response.json();
@@ -555,7 +559,6 @@ function Home() {
         {/* <Container className={classes.container}> */}
         <Grid container spacing={3}>
           {/* MAPPING             */}
-
           {filteredNames.slice(0, limit).map((healerName, i) => {
             if (searchTag.includes(healerName.tags[0].name)) {
               return (

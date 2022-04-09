@@ -49,6 +49,12 @@ const schema = yup.object({
 const useStyles = makeStyles((theme) => ({}));
 const aToken = sessionStorage.getItem('token');
 
+const HealerTags = (props) => {
+  console.log('Im here!!');
+  console.log(props);
+  return null;
+};
+
 const HealerServices = (props) => {
   const classes = useStyles();
   const [showComponent, setShowComponent] = useState(false);
@@ -442,6 +448,21 @@ const CancelationFee = (props) => {
     </form>
   );
 };
+const TagContent = (props) => {
+  const classes = useStyles();
+
+  React.useEffect(() => {
+    return (
+      <div>
+        <CssBaseline />
+        <Box className={`${classes.Box} ${globalStyles.centerItems}`}>
+          <PageTitle contents="Manage Tags" />
+        </Box>
+        <HealerTags tags={props.tags} />
+      </div>
+    );
+  });
+};
 
 const PageContent = (props) => {
   const classes = useStyles();
@@ -535,6 +556,7 @@ function ServicesPage() {
 
   const [services, setServices] = useState([]);
   const [healerID, setHealerId] = useState();
+  const [tags, setTags] = useState([]);
 
   React.useEffect(() => {
     // This fills the form with your current user data.
@@ -553,7 +575,10 @@ function ServicesPage() {
         if (!response.ok)
           throw Error(response.status + ': ' + response.statusText); // error checking, is the data okay?
         const data = await response.json(); // transform the data from string into JSON format.
+        console.log(data);
+        console.log('data is here');
         setHealerId(data.healerProfileId);
+        setTags(data.tags);
       } catch (Error) {
         console.log(Error);
       }
@@ -594,6 +619,7 @@ function ServicesPage() {
         <Paper className={`${classes.Paper} ${globalStyles.smlPgContainer}`}>
           <PageContent services={services} healerID={healerID} />
         </Paper>
+        <Paper>{/*<TagContent tags={tags} />*/}</Paper>
         <Copyright />
       </div>
     );
@@ -601,4 +627,5 @@ function ServicesPage() {
     return <div>Loading...</div>;
   }
 }
+
 export default ServicesPage;

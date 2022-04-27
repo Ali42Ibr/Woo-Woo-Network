@@ -10,6 +10,7 @@ import ManageServices from './services-page.jsx';
 import jwt_decode from 'jwt-decode';
 import BookingPage from './booking-page';
 import SchedulePage from './schedule-page';
+import Tags from './tags';
 import ServicesPage from './services-page.jsx';
 import AppointmentHistory from './appointment-history';
 import DiaryPage from './diary-page';
@@ -92,6 +93,7 @@ const AuthSite = ({ logout, user }) => {
           <Route exact path="/schedule" render={SchedulePage}></Route>
           <Route exact path="/services" component={ServicesPage}></Route>
           <Route exact path="/history" component={AppointmentHistory}></Route>
+          <Route exact path="/tags" component={Tags}></Route>
           <Route exact path="/diary" component={DiaryPage}></Route>
           <Route exact path="/reschedule" component={ReschedulePage}></Route>
           <Route path="/review" component={ReviewPage}></Route>

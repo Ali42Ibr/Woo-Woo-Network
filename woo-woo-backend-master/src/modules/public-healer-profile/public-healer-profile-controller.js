@@ -72,7 +72,6 @@ const getHealerLocationList = async (req, res, next) => {
         req.headers['authorization']
       );
       console.log(healer);
-      console.log('startXD');
       if (healer) {
         // if user is healer
         const healerProfile = await userHelper.getHealerUser(uid);
